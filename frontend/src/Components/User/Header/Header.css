@@ -1,0 +1,45 @@
+#t2{
+    color: white;
+    position: relative;
+    left: 20px;
+    font-size: 32px;
+    top: 0px;
+}
+#notify{
+    font-size: 28px;
+}
+#unotification{
+    position: relative;
+    top: 0px;
+    left: 1150px;
+    font-size: 28px;
+    background-color: transparent;
+    border: none;
+    color: #EEEEEE;
+}
+#notification_list{
+    width: 500px;
+    left: 1000px;
+}
+
+#profileicon{
+    position: relative;
+    left: -90px;
+    top: 0px;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    color: white;
+}
+#profile_details{
+    position: absolute;
+    left: -240px;
+}
+#underline{
+    position: relative;
+    left: -0px;
+    top: 0px;
+}
+#link{
+    text-decoration: none;
+}

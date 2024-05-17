@@ -1,0 +1,101 @@
+#div2{
+    margin-top: -600px;
+}
+#hdiv{
+    width: 18rem;
+    position: relative;
+    top: 50px;
+    left: 50px;
+    background-color: #31363f8f;
+    color: #EEEEEE;
+    margin-left: 20px;
+}
+#hb{
+    background-color: #EEEEEE;
+    color: #31363F;
+    font-weight: bold;
+    position: relative;
+    left: 100px;
+    border-radius: 5px;
+    height: 40px;
+}
+#hb:hover{
+    background-color: #31363F;
+    color: #EEEEEE;
+    box-shadow: 2px 3px 4px #31363F;
+}
+#sub{
+    height: 400px;
+    width: 1000px;
+    position: relative;
+    left: 150px;
+}
+#himg{
+    height: 150px;
+    width: 150px;
+    border-radius: 5px;
+    position: relative;
+    top: 20px;
+    left: 50px;
+}
+#hh{
+    position: relative;
+    top: 20px;
+}
+#hi{
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+#usearch{
+    margin-left: 100px;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    position: relative;
+    top: -90px;
+    left: 260px;
+    font-size: 16px;
+    background-color: #fcfafa9a;
+    color: black;
+    padding: 10px;
+}
+#usearch1{
+    position: relative;
+    top: -78px;
+    left: 260px;
+}
+#usearchicon{
+    position: relative;
+    left: -45px;
+    top: -10px;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    color: black;
+}
+#uosfilter{
+    background-color: transparent;
+    color: #EEEEEE;
+    width: auto;
+    border:2px solid black;
+    border-radius: 3px;
+    position: relative;
+    left: 200px;
+    height: 30px;
+    font-size: 18px;
+    top: -55px;
+}
+
+#uosfilter option{
+    background-color: #31363F;
+    color: #EEEEEE;
+}
+#carouselExampleIndicators{
+    position: relative;
+    top: -30px;
+}
+#homenav{
+    position: relative;
+    left: 50px;
+}
