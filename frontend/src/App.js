@@ -10,6 +10,7 @@ import ReportPage from "./Pages/User/ReportPage";
 import LibraryPage from "./Pages/User/LibraryPage";
 import ProfilePage from "./Pages/User/ProfilePage";
 import EditProfilePage from "./Pages/User/EditProfilePage";
+import UpdatePage from "./Pages/User/UpdatePage";
 import AdminLoginPage from "./Pages/Admin/AdminLoginPage";
 import AdminHomePage from "./Pages/Admin/AdminHomePage";
 import AdminAppManagementPage from "./Pages/Admin/AdminAppManagementPage";

@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './ViewFeedback.css'
 import { Link } from 'react-router-dom'
+import { fetchUserFeedback } from '../../../Services/adminApi'
 
 export default function ViewFeedback() {
+    const [feedbackData,setFeedbackData]=useState([])
+    const [error,setError]=useState(null)
+    useEffect(()=>{
+        fetchUserFeedback().then((response)=>{
+            console.log(response?.data?.feedbackData,"Feedback")
+            if(response?.data?.status){
+                setFeedbackData(response?.data?.feedbackData)
+            }else{
+                setError('Failed to fetch feedback')
+            }
+        })
+        .catch((err)=>{
+            console.error('Error fetching feedback:', err);
+            setError('Error fetching feedback');
+        })
+    },[])
   return (
     <div>
         
@@ -11,15 +28,23 @@ export default function ViewFeedback() {
                 <div class="container">
                     <div class="row">
                             <h2>Feedback</h2>
-                            <div id='box3'>
-                                <input type="text" id='vft1' value={'Account name'} readOnly/>
-                                <input type="text" id='vft2' value={'Feedback Category'} readOnly/>
-                                <Link to='../../admin/feedback'><input type="button" id='vfb1' value={'View Details'}/></Link>
-                            </div>
+                            {error && <p className="error-message">{error}</p>}
+                            {feedbackData.length>0?(
+                                feedbackData.map((value,index)=>(
+                                <div id='box3' key={index}>
+                                    <input type="text" id='vft1' value={value?.userId?.username} readOnly aria-label="Username"/>
+                                    <input type="text" id='vft2' value={value?.category} readOnly aria-label="Category"/>
+                                    <Link to={`/admin/feedback_view/${value?._id}`}><input type="button" id='vfb1' value={'View Feedback'}/></Link>
+                                </div>
+                                ))
+                            ):(
+                                <p>No User's feedback</p>
+                            )}
+                            
                     </div>
                 </div>
             </section>
         </div>
     </div>
-  )
+  );
 }

@@ -4,6 +4,8 @@ const path=require("path")
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 const userFeedbackModel = require("../Models/userFeedbackModel")
+const { profile } = require("console")
+const { use } = require("../Routes/userRoutes")
 const maxAge=24*60*60
 
 const createToken=(id)=>{
@@ -114,7 +116,7 @@ module.exports.Header=async(req,res)=>{
     }
 };
 
-module.exports.userFeedback=async(req,res,next)=>{
+module.exports.userFeedback=async(req,res)=>{
     try{
         const feedbackExists=await userFeedbackModel.findOne({userId:req.params.userId})
         if(feedbackExists){
@@ -132,5 +134,73 @@ module.exports.userFeedback=async(req,res,next)=>{
     }catch(error){
         console.log(error)
         return res.json({message:"Unable to send", status:false})
+    }
+}
+
+module.exports.updateProfile=async(req,res,next)=>{
+    try{
+        const extractImageUrl=(fullPath)=>{
+            const relativePath=path.relative("public/images",fullPath)
+            const imageUrl=relativePath.replace(/\\/g,"/")
+            return imageUrl
+        };
+        const userId=req.params.userId
+        const updatedUser=await userModel.findOneAndUpdate(
+            {_id:userId},
+            {
+                $set:{
+                    username:req.body.epname,
+                    contactNo:req.body.epcno,
+                    email:req.body.epmail,
+                    profileImage:req.file? extractImageUrl(req.file.path):undefined,
+                }
+            },
+            {new:true}
+        );
+        console.log(updatedUser,"Updated User")
+        if(updatedUser){
+            res.json({message:"Profile updated successfully",status:true,user:updatedUser})
+        }else{
+            res.json({message:"No user found or unable to update profile",status:false})
+        }
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message:"Internal server error",status:false})
+    }
+};
+
+module.exports.appAddtoUser=async(req,res)=>{
+    try{
+        const userId=req.body.userId
+        const appId=req.body.appId
+        const user=await userModel.findOneAndUpdate(
+            {_id:userId,downloadedAppsId:{$ne:appId}},
+            {$push:{downloadedAppsId:appId}},
+            {new:true}
+        );
+        if(user){
+            res.json({message:"App added to user successfully",status:true,user:user})
+        }else{
+            res.json({message:"App already exists in user's downloaded apps",status:true,user:null})
+        }
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message:"Internal server error",status:false})
+    }
+};
+
+module.exports.fetchUserInstalledApps=async(req,res)=>{
+    try{
+        const downloadedAppsIds=req.user.downloadedAppsId
+        console.log(downloadedAppsIds,"fetchUserInstalledApps")
+        if(!Array.isArray(downloadedAppsIds)||downloadedAppsIds.length===0){
+            return res.json({message:"User has no installed apps",status:true,apps:[]})
+        }
+        const appIds=downloadedAppsIds.map(appId=>appId.toString())
+        const installedApps=await appModel.find({_id:{$in:appIds}})
+        res.json({message:"User installed apps fetched successfully",status:true,apps:installedApps})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({message:"Internal server error",status:false})
     }
 }

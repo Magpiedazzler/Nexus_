@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Report.css'
-import imageOne from "./12.jpg"
-import {Link,useNavigate} from "react-router-dom"
+import {Link,useNavigate, useParams} from "react-router-dom"
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { appReport, getSelectedAppsDetails } from '../../../Services/userApi'
 
 export default function Report() {
+  const appId=useParams().appId
+  const navigate=useNavigate()
+  const [appDetails,setAppDetails]=useState({})
+  const userId=useSelector((state)=>state?.user?.value?._id)
 
-    const navigate=useNavigate()
+  useEffect(()=>{
+    getSelectedAppsDetails(appId).then((value)=>{
+      setAppDetails(value?.data?.appData)
+    })
+  },[]);
 
   const initialValues={
     reportCategory:"",
@@ -22,22 +32,21 @@ export default function Report() {
       .required("* This field is required"),
   });
 
-    // const onSubmit=async(values,{resetForm})=>{
-  //   console.log(values);
-  //   const data=await userRegister(values);
-  //   console.log(data);
-  //   if(data.data.status){
-  //     toast.success("Login successfully")
-  //     resetForm()
-  //     navigate("/login")
-  //   }else{
-  //     toast.console.error("Unable to login");
-  //   }
-  // };
+    const onSubmit=async(values,{resetForm})=>{
+    console.log(values);
+    appReport(userId,appId,values).then((values)=>{
+      if(values?.data?.status){
+        toast.success(values?.data?.message)
+        resetForm()
+      }else{
+        toast.error(values?.data?.message)
+      }
+    });
+  };
 
   const formik =useFormik({
     initialValues,
-    // onSubmit,
+    onSubmit,
     validationSchema,
   });
 
@@ -49,11 +58,11 @@ export default function Report() {
         <div class="container">
             <div class="row">
                     <h1 id='rh'>App Report</h1>
-                    <form action="" id='rbox'>
+                    <form onSubmit={formik.handleSubmit} id='rbox'>
                     <div>
-                        <img src={imageOne} alt="Sample app icon" id='img1'/>
+                        <img src={`http://localhost:4000/img/${appDetails?.appIcon}`} alt="Sample app icon" id='img1'/>
                     </div><br />
-                        <input type="text" name="" id="rtext" value={'App Name'} readOnly/><br /><br />
+                        <input type="text" name="" id="rtext" value={appDetails?.appName} readOnly/><br /><br />
                         <select name="reportCategory" id="rs"
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
@@ -81,7 +90,7 @@ export default function Report() {
                                 {formik.errors.reportMsg}
                             </p>
                         ):null}
-                        <input type="button" name="" id="rbtn" value={'Send'}/>
+                        <input type="submit" name="" id="rbtn" value={'Send'}/>
                         </form>
                 </div>
         </div>

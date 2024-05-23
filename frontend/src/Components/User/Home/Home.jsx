@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import imageOne from "./12.jpg"
 import './Home.css'
-import { getUploadedApps } from '../../../Services/userApi'
-import { Link } from 'react-router-dom'
+import { appAddtoProfile, getUploadedApps } from '../../../Services/userApi'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
 
     const [appDetails,setAppDetails]=useState([])
+    const userId=useSelector((state)=>state?.user?.value?._id)
+    const navigate=useNavigate()
 
-    const DownloadSelectedApp=(apkFile)=>{
-        console.log(apkFile,'%%%%%')
+    const DownloadSelectedApp=(apkFile,appId)=>{
+        appAddtoProfile(userId,appId).then((value)=>{})
+
         const fileUrl=`http://localhost:4000/img/${apkFile}`
         const link=document.createElement('a')
         link.href=fileUrl
@@ -69,20 +73,22 @@ export default function Home() {
                             </div>
                             {appDetails.length>0 ?(
                                 appDetails.map((value,id)=>(
-                            <div class="card" id='hdiv' key={id}>
+                            <div class="card" id='hdiv' onClick={()=>navigate(`/install/$(value?._id)`)} key={id}>
                                 <img src={`http://localhost:4000/img/${value?.appIcon}`} id='himg' class="card-img-top" alt="..."/>
-                                <Link to={'../install'}><div class="card-body">
+                                <div class="card-body">
                                     <h5 class="card-title" id='hh'>{value?.appName}</h5><br />
                                     <p class="card-text">{value?.category}</p>
-                                    <button id='hb' onClick={DownloadSelectedApp(value?.apkFile)}><i class="bi bi-download" id='hi'></i>Download</button>
-                                </div></Link>
+                                    <button id='hb' onClick={DownloadSelectedApp(value?.apkFile,value?._id)}><i class="bi bi-download" id='hi'></i>Download</button>
+                                </div>
                             </div>
                                 ))
-                            ):null}
+                            ):(
+                                <p>Application not available</p>
+                            )}
                     </div>
                 </div>
             </section>
         </div>
     </div>
-  )
+  );
 }

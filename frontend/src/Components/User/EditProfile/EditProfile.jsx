@@ -1,59 +1,100 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './EditProfile.css'
 import {Link,useNavigate} from "react-router-dom"
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
+import { useSelector } from 'react-redux'
+import { updateUserProfile, userHeader } from '../../../Services/userApi'
+import { toast } from 'react-toastify'
 
 export default function EditProfile() {
+  const [name,setName]=useState()
+  const [contactNo, setContact] = useState();
+  const [email, setEmail] = useState();
+  const [image, setImage] = useState();
+  const userId=useSelector((state)=>state?.user?.value?._id)
 
-  const supportedImageExtentionRegex=/\.(jpg|jpeg|png|avif)$/i;
+  useEffect(()=>{
+    userHeader().then((value)=>{
+      console.log(value.data.user,"USerPro")
+      if(value.data.status){
+        setName(value?.data?.user?.username);
+        setContact(value?.data?.user?.contactNo);
+        setEmail(value?.data?.user?.email);
+        setImage(value?.data?.user?.profileImage);
+        console.log(image,"#####");
+      }
+    })
+  },[]);
+
+
+  // const supportedImageExtentionRegex=/\.(jpg|jpeg|png|avif)$/i;
 
   const navigate=useNavigate()
+
+  useEffect(() => {
+    formik.setValues({
+      ...formik.values,
+      epname: name,
+      epcno: contactNo,
+      epmail: email,
+    });
+  }, [name, contactNo, email]);
 
   const initialValues={
     profileImage:"",
     epname:"",
     epcno:"",
     epmail:"",
-    epbio:"",
   };
 
-  const validationSchema=Yup.object({
-    epname:Yup.string()
-      .min(3,"* Name must be atleast 3 charecters long")
-      .matches(/^[A-Za-z]+$/,"* Name must only contain charecters")
+  const supportedImageTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/svg+xml",
+    "image/avif",
+  ];
+
+  const validationSchema = Yup.object({
+    epname: Yup.string()
+      .min(3, "* Name must be atleast 3 charecters long")
+      .matches(/^[A-Za-z]+$/, "* Name must only contain charecters")
       .required("* This field is required"),
-    epcno:Yup.string()
-      .matches(/^[0-9]{6,14}$/,"* Invalid phone number format, Please enter a valid phone number")
+    epcno: Yup.string()
+      .matches(
+        /^[0-9]{6,14}$/,
+        "* Invalid phone number format, Please enter a valid phone number"
+      )
       .required("* This field is required"),
-    epmail:Yup.string()
+    epmail: Yup.string()
       .email("* Invalid email format")
       .required("* This fiels id required"),
-    epbio:Yup.string()
-      .min(6,"* Bio must be atleast 6 charecters long"),
-    profileImage:Yup.mixed()
-      .test("fileType", "Unsupported file type", (value)=>{
-        if(!value) return false;
-        return supportedImageExtentionRegex.test(value.name);
-      }),
+    profileImage: Yup.mixed().test(
+      "fileType",
+      "Unsupported file type",
+      (value) => {
+        if (!value) return true;
+        return supportedImageTypes.includes(value.type);
+      }
+    ),
   });
 
-  // const onSubmit=async(values,{resetForm})=>{
-  //   console.log(values);
-  //   const data=await userRegister(values);
-  //   console.log(data);
-  //   if(data.data.status){
-  //     toast.success("Login successfully")
-  //     resetForm()
-  //     navigate("/login")
-  //   }else{
-  //     toast.console.error("Unable to login");
-  //   }
-  // };
+  const onSubmit = async (values, { resetForm }) => {
+    console.log(values,"$$$%%%%");
+    updateUserProfile(values, userId).then((value)=>{
+      console.log(value.data,"Value");
+      if(value.data.status){
+        toast.success(value.data.message)
+      }else{
+        toast.error("Unable to update")
+      }
+     
+    })
+  };
 
   const formik =useFormik({
     initialValues,
-    // onSubmit,
+    onSubmit,
     validationSchema,
   });
   return (
@@ -63,12 +104,11 @@ export default function EditProfile() {
                 <div class="container">
                     <div class="row">
                         <h2 id='eph'>Edit your Profile</h2>
-                        <form action="" id='epf2'>
+                        <form onSubmit={formik.handleSubmit} id='epf2'>
                         <h4>Avatar</h4><br /><br />
-                        <img id='eimg' class="img-raised rounded-circle img-fluid" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixlr.com%2F&psig=AOvVaw3WDqgSsQOWtW5p-q7q-7gb&ust=1713440072180000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKDG8fSTyYUDFQAAAAAdAAAAABAE" alt="" />
+                        <img id='eimg' class="img-raised rounded-circle img-fluid" src={(image?`http://localhost:4000/img/${image}`:(  formik.values.profileImage? URL.createObjectURL(formik.values.profileImage): ""))} alt="" />
                         <div id='uploadButton'>
                           <input type="file" id='epbtn' name='profileImage'
-                          onBlur={formik.handleBlur}
                           onChange={(event)=>formik.setFieldValue("profileImage",event.currentTarget.files[0])}/>
                           <div id='upbtn-label'>Choose Image</div>
                           {formik.touched.profileImage && formik.errors.profileImage ?(
@@ -107,16 +147,7 @@ export default function EditProfile() {
                               {formik.errors.epcno}
                             </p>
                           ):null}
-                        <h4>Bio</h4>
-                        <input type="text" name="epbio" id="epbio" placeholder='About yourself'
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        value={formik.values.epbio}/><br /><hr id='ep1'/><br />
-                        {formik.touched.epbio && formik.errors.epbio ?(
-                            <p className='text-danger errorMsg' style={{fontSize:"12px",margin:"0px",position:"relative",top:"-40px"}}>
-                              {formik.errors.epbio}
-                            </p>
-                          ):null}
+                        
                         <button id="button">Save</button>
                         </form>
                     </div>

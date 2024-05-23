@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './TotalUsers.css'
+import { userlist } from '../../../Services/adminApi';
 
 export default function TotalUsers() {
+    const [userDetails,setUserDeatils]=useState([])
+    useEffect(()=>{
+        userlist().then((value)=>{
+            console.log(value.data,"$$$$$")
+            setUserDeatils(value?.data?.userlist)
+        });
+    },[])
   return (
     <div>
         <div id='div2'>
@@ -20,12 +28,15 @@ export default function TotalUsers() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td>Raju Bai</td>
-                    <td>8978985645</td>
-                    <td>rajubai@gmail.com</td>
-                    </tr>
+                    {userDetails.map((value)=>(
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>{value.username}</td>
+                            <td>{value.contactNo}</td>
+                            <td>{value.email}</td>
+                        </tr>
+                    ))}
+                    
                 </tbody>
             </table>
         </div>

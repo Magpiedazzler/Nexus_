@@ -30,6 +30,13 @@ const userSchema= new mongoose.Schema({
         type:Date,
         default:Date.now,
     },
+    profileImage:{
+        type:String,
+    },
+    downloadedAppsId:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'AppDetails'
+    }]
 });
 
 userSchema.pre("save",async function(next){

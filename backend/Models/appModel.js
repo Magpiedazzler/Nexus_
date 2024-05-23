@@ -51,6 +51,10 @@ const appSchema=new mongoose.Schema({
         type:Date,
         default:Date.now,
     },
+    Downloaded:{
+        type:String,
+        default:false,
+    },
 });
 
 module.exports=new mongoose.model("app",appSchema);

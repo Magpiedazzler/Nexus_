@@ -1,8 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './AdminHeader.css'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setAdminDetails } from '../../../Features/setAdmin'
+import { adminHeader } from '../../../Services/adminApi'
 
 export default function AdminHeader() {
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const [adminData,setAdminData]=useState({})
+
+  const userLogOut=()=>{
+    localStorage.removeItem("adminJWT")
+    dispatch(setAdminDetails(""))
+    navigate("/admin")
+  };
+
+  useEffect(()=>{
+    adminHeader().then((value)=>{
+      if(value.data.admin){
+        console.log(value.data.admin,"$$$$")
+        setAdminData(value.data.admin)
+        dispatch(setAdminDetails(value.data.admin))
+      }
+    })
+  },[]);
+
   return (
     <div>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -12,9 +35,9 @@ export default function AdminHeader() {
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                        <Link to='../notification'><button class="btn btn-dark" id='notification'>
+                        <button onClick={()=>navigate("/admin/notification")} class="btn btn-dark" id='notification'>
                         <i class="bi bi-bell" id='notify'></i>
-                        </button></Link>
+                        </button>
                         </li>
                         </ul>
                     </div>
@@ -23,11 +46,10 @@ export default function AdminHeader() {
                         <i class="bi bi-person-circle" id='profile'></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" id='profile_details'>
-                            <li><a class="dropdown-item active" href="#">Name</a></li>
-                            <li><a class="dropdown-item" href="#">Email</a></li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li><p class="dropdown-item active" >Admin</p></li>
+                            <li><a class="dropdown-item">{adminData.email}</a></li>
+                            <li><button class="dropdown-item" onClick={()=>{userLogOut()}}>Sign out</button></li>
                             <li><hr class="dropdown-divider" id='underline'/></li>
-                            <li><a class="dropdown-item" href="#">View Profile</a></li>
                         </ul>
                     </div>
             </div>

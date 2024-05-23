@@ -12,6 +12,7 @@ import ReportPage from '../Pages/User/ReportPage'
 import LibraryPage from '../Pages/User/LibraryPage'
 import ProfilePage from '../Pages/User/ProfilePage'
 import EditProfilePage from '../Pages/User/EditProfilePage'
+import UpdatePage from '../Pages/User/UpdatePage'
 
 function UserRoutes() {
   return (
@@ -29,6 +30,7 @@ function UserRoutes() {
         <Route path='/library' element={<LibraryPage/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
         <Route path='/edit_profile' element={<EditProfilePage/>}/>
+        <Route path='/update' element={<UpdatePage/>}/>
       </Routes>
     </div>
   )
