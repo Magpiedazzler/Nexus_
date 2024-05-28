@@ -104,10 +104,11 @@ html *{
 }
 .description label{
     position: relative;
-    left: -420px;
+    left: -390px;
     top: -90px;
     font-family: cursive;
     font-size: 18px;
+    font-weight: bold;
 }
 .description input{
     background-color: transparent;

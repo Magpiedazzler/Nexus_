@@ -4,8 +4,10 @@ const path=require("path")
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 const userFeedbackModel = require("../Models/userFeedbackModel")
+const notificationModel = require("../Models/adminNotificationModel")
 const { profile } = require("console")
 const { use } = require("../Routes/userRoutes")
+const bannerModel = require("../Models/bannerModel")
 const maxAge=24*60*60
 
 const createToken=(id)=>{
@@ -17,7 +19,7 @@ const createToken=(id)=>{
 module.exports.register=async(req,res)=>{
     console.log(req.body,"!!!!!");
     try{
-        const{email,password,username,contactNo}=req.body;
+        const{email,password,username,contactNo,secretQuestion,answer}=req.body;
 
         const emailExist =await userModel.findOne({email:email});
         const contactExist = await userModel.findOne({contactNo:contactNo});
@@ -29,6 +31,8 @@ module.exports.register=async(req,res)=>{
             email:email,
             password:password,
             contactNo:contactNo,
+            secretQuestion:secretQuestion,
+            answer:answer,
         });
         const userDetails = await newUser.save();
         const token = createToken(userModel._id);
@@ -204,3 +208,62 @@ module.exports.fetchUserInstalledApps=async(req,res)=>{
         return res.status(500).json({message:"Internal server error",status:false})
     }
 }
+
+module.exports.getNotification = async (req, res) => {
+  try {
+    console.log(req.params.userId, "$$$$$!");
+    const userId = req.params.userId;
+    const data = await notificationModel.find({
+      $or: [{ ReceiverId: userId }, { ReceiverId: null }],
+    });
+    if (data) {
+      return res.json({ message: "Success", data, status: true });
+    } else {
+      return res.json({
+        message: "Unable to fetch notification",
+        status: false,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.json({ message: "Internal server error", status: false });
+  }
+};
+
+module.exports.getUploadApps=async(req,res)=>{
+    try{
+        const userId=req.params.userId;
+        const data =await  appModel.find({userId})
+        console.log(data,"app data")
+        if(data){
+            return res.json({message:"success",data,status:true})
+        }else{
+            return res.json({
+                message:"Unable to find apps", status:false,
+            });
+        }
+    }catch(error){
+        console.log(error);
+        return res.json({ message: "Internal server error", status: false }); 
+    }
+}
+
+module.exports.getBanner=async(req,res)=>{
+    try{
+        const bannerId=req.body._id
+        console.log(bannerId,"55555555555")
+        const data =await bannerModel.find({bannerId})
+        console.log(data,"backendssss")
+        if(data){
+            return res.json({message:"success",data,status:true})
+        }else{
+            return res.json({message:"Unable to find banner",status:false})
+        }
+    }catch(error){
+        console.log(error)
+        return res.json({message:"Internal server error",status:false})
+    }
+}
+
+
+

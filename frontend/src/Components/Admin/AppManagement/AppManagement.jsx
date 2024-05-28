@@ -7,9 +7,9 @@ export default function AppManagement() {
     const [appDetails,setAppDetails]=useState([])
     useEffect(()=>{
         totalApplications().then((value)=>{
-            setAppDetails(value.data.data)
+            setAppDetails(value.data.Data)
         })
-    },[appDetails])
+    },[])
 
     const testApplication=(apkFile)=>{
         const fileUrl = `http://localhost:4000/img/${apkFile}`;
@@ -23,6 +23,7 @@ export default function AppManagement() {
 
     const approveApplication=(appId)=>{
         approveApp(appId).then((value)=>{
+            console.log(value.verified,"ascsdaccsacass")
             if(value?.data?.status){
                 toast.success(value?.data?.message);
             }else{
@@ -33,6 +34,7 @@ export default function AppManagement() {
     const applicationBlock=(appId)=>{
         blockApp(appId).then((value)=>{
             console.log(value?.data?.appDetails);
+            console.log(value.verified,"ascsdacs")
       if (value?.data?.status) {
         toast.success(value?.data?.message);
       } else {

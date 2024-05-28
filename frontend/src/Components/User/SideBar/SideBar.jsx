@@ -21,8 +21,8 @@ export default function SideBar() {
                                 <ul class="dropdown-menu">
                                 <Link to={'../upload'} id='link'><li><i class="bi bi-upload" id='i1'></i>Upload Apps</li></Link>
                                 <Link to={'../feedback'} id='link'><li><i class="bi bi-chat-fill" id='i1'></i>Feedback</li></Link>
-                                <Link to={'../apps'} id='link'><li><i class="bi bi-file-person-fill" id='i1'></i>About</li></Link>
-                                <Link to={'../apps'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Get Help</li></Link>
+                                <Link to={'../update'} id='link'><li><i class="bi bi-file-person-fill" id='i1'></i>Published Apps</li></Link>
+                                <Link to={'../apps'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>About</li></Link>
                                 </ul>
                             </div>
                         </div>

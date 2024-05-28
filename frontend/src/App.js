@@ -11,6 +11,8 @@ import LibraryPage from "./Pages/User/LibraryPage";
 import ProfilePage from "./Pages/User/ProfilePage";
 import EditProfilePage from "./Pages/User/EditProfilePage";
 import UpdatePage from "./Pages/User/UpdatePage";
+import UploadFilePage from "./Pages/User/UploadFilePage";
+import ForgotPasswordPage from "./Pages/User/ForgotPasswordPage";
 import AdminLoginPage from "./Pages/Admin/AdminLoginPage";
 import AdminHomePage from "./Pages/Admin/AdminHomePage";
 import AdminAppManagementPage from "./Pages/Admin/AdminAppManagementPage";
@@ -29,6 +31,10 @@ import AdminLinuxAppinfo from "./Pages/Admin/AdminLinuxAppinfo";
 import AdminMacAppinfo from "./Pages/Admin/AdminMacAppinfo";
 import AdminWindowsAppinfo from "./Pages/Admin/AdminWindowsAppinfo";
 import AdminNotificationPage from "./Pages/Admin/AdminNotificationPage";
+import AdminBannerPage from "./Pages/Admin/AdminBannerPage";
+import AdminAppUploadPage from "./Pages/Admin/AdminAppUploadPage";
+import AdminUpdateAppPage from "./Pages/Admin/AdminUpdateAppPage";
+import AdminUpdateAppFilePage from "./Pages/Admin/AdminUpdateAppFilePage";
 import UserRoutes from "./Routes/UserRoutes"
 import AdminRoutes from "./Routes/AdminRoutes"
 import {BrowserRouter,Routes,Route} from "react-router-dom";

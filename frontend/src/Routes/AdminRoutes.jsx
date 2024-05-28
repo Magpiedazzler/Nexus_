@@ -18,6 +18,10 @@ import AdminWindowsAppinfo from '../Pages/Admin/AdminWindowsAppinfo'
 import AdminLibrarypage from '../Pages/Admin/AdminLibrarypage'
 import AdminLoginPage from '../Pages/Admin/AdminLoginPage'
 import AdminNotificationPage from '../Pages/Admin/AdminNotificationPage'
+import AdminBannerPage from '../Pages/Admin/AdminBannerPage'
+import AdminUpdateAppPage from '../Pages/Admin/AdminUpdateAppPage'
+import AdminUpdateAppFilePage from '../Pages/Admin/AdminUpdateAppFilePage'
+import AdminAppUploadPage from '../Pages/Admin/AdminAppUploadPage'
 
 export default function AdminRoutes() {
   return (
@@ -26,7 +30,7 @@ export default function AdminRoutes() {
         <Route path='/account' element={<AdminUserAccountPage/>}/>
         <Route path='/app_management' element={<AdminAppManagementPage/>}/>
         <Route path='/compliant' element={<AdminCompliantPage/>}/>
-        <Route path='/feedback' element={<AdminFeedbackCheckPage/>}/>
+        <Route path='/feedback/:id' element={<AdminFeedbackCheckPage/>}/>
         <Route path='/feedback_view' element={<AdminViewFeedbackPage/>}/>
         <Route path='/library' element={<AdminLibrarypage/>}/> 
         <Route path='/apps' element={<AdminAppPage/>}/> 
@@ -39,8 +43,13 @@ export default function AdminRoutes() {
         <Route path='/linuxapp_details' element={<AdminLinuxAppinfo/>}/>
         <Route path='/macapp_details' element={<AdminMacAppinfo/>}/>
         <Route path='/windowsapp_details' element={<AdminWindowsAppinfo/>}/>
-        <Route path='/adlogin' element={<AdminLoginPage/>}/>
+        <Route path='/' element={<AdminLoginPage/>}/>
         <Route path='/notification' element={<AdminNotificationPage/>}/>
+        <Route path='/banner' element={<AdminBannerPage/>}/>
+        <Route path='/upload_app' element={<AdminAppUploadPage/>}/>
+        <Route path='/update_app' element={<AdminUpdateAppPage/>}/>
+        <Route path='/update_appfile' element={<AdminUpdateAppFilePage/>}/>
+
       </Routes>
     </div>
   )

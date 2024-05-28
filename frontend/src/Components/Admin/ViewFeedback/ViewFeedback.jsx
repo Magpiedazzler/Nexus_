@@ -34,7 +34,7 @@ export default function ViewFeedback() {
                                 <div id='box3' key={index}>
                                     <input type="text" id='vft1' value={value?.userId?.username} readOnly aria-label="Username"/>
                                     <input type="text" id='vft2' value={value?.category} readOnly aria-label="Category"/>
-                                    <Link to={`/admin/feedback_view/${value?._id}`}><input type="button" id='vfb1' value={'View Feedback'}/></Link>
+                                    <Link to={`/admin/feedback/${value?._id}`}><input type="button" id='vfb1' value={'View Feedback'}/></Link>
                                 </div>
                                 ))
                             ):(

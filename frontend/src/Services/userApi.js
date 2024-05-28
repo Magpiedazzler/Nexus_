@@ -1,7 +1,7 @@
 import { userInstance } from "../Axios/axiosinstance";
 
 export const userRegister=(values)=>{
-    console.log(values)
+    console.log(values,"service")
     return userInstance.post("/register",{...values})
 }
 
@@ -70,4 +70,16 @@ export const getWishlistApps=()=>{
 
 export const getAdminFeedComment=(userId)=>{
     return userInstance.get(`/getfeedComment/${userId}`)
+}
+
+export const getNotification=(userId)=>{
+    return userInstance.get(`/getnotification/${userId}`)
+}
+
+export const getUploadApps=(userId)=>{
+    return userInstance.get(`/getuploadapps/${userId}`)
+}
+
+export const getBanner=()=>{
+    return userInstance.get(`/getbanner`)
 }

@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setUserDetails } from '../../../Features/setUser'
-import { getAdminFeedComment, userHeader } from '../../../Services/userApi'
+import { getAdminFeedComment, getNotification, userHeader } from '../../../Services/userApi'
 
 
 export default function Header() {
@@ -13,45 +13,67 @@ export default function Header() {
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const [data,setData]=useState({})
-    const [feedComment,setFeedComment]=useState({})
-    const [seen,setSeen]=useState(false)
+    const [feedComment,setFeedComment]=useState([])
+    const [notification,setNotification]=useState([])
 
-    const AdminFeedNotification=(userId)=>{
-        setData(true)
-        if(userId){
-            getAdminFeedComment(userId).then((value)=>{
-                if(value?.data?.status){
-                    setFeedComment(value?.data?.data)
-                }
-            });
+    const adminFeedNotification = async (userId) => {
+        if (userId) {
+          try {
+            const value = await getAdminFeedComment(userId);
+            if (value?.data?.status) {
+              setFeedComment(value?.data?.data);
+            }
+                      } catch (error) {
+            console.error("Error fetching admin feed comments:", error);
+          }
         }
-    };
-
-    const userLogOut=()=>{
-        localStorage.removeItem("jwt")
+      };
+    
+      const getAdminNotification = async (userIdentity) => {
+        try {
+          const value = await getNotification(userIdentity);
+          if (value?.data?.status) {
+            setNotification(value?.data?.data);
+          }
+          console.log(notification,"ggggggggggggg")
+        } catch (error) {
+          console.error("Error fetching notifications:", error);
+        }
+      };
+    
+      const userLogOut = () => {
+        localStorage.removeItem("jwt");
         dispatch(setUserDetails(""));
         navigate("/login");
-    };
-
-    const userIdentity = useSelector((state) => state?.user?.value?._id);
-
-    useEffect(()=>{
-        userHeader().then((response)=>{
-            if(response.data.status){
-                setData(response.data.user)
-                dispatch(setUserDetails(response.data.user));
+      };
+    
+      const userIdentity = useSelector((state) => state?.user?.value?._id);
+    
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await userHeader();
+            if (response.data.status) {
+              setData(response.data.user);
+              dispatch(setUserDetails(response?.data?.user));
             }
-        });
-        AdminFeedNotification(userIdentity)
-    },[dispatch,userIdentity]);
-
-    const handleLoginClick=()=>{
+            await adminFeedNotification(userIdentity);
+            await getAdminNotification(userIdentity);
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          }
+        };
+    
+        fetchData();
+      }, [dispatch, userIdentity]);
+    
+      const handleLoginClick = () => {
         navigate("/login");
-    };
-
-    const handleSignupClick=()=>{
+      };
+    
+      const handleSignupClick = () => {
         navigate("/signup");
-    };
+      };
   return (
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -62,27 +84,40 @@ export default function Header() {
                         <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id='unotification'
-                        onClick={()=>AdminFeedNotification(userIdentity)}>
+                        onClick={()=>adminFeedNotification(userIdentity)}>
                         <i class="bi bi-bell" id='notify'></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" id='notification_list'>
                             <h5 className="notificationHead">Notifications</h5>
-                            {feedComment.length > 0 ?(
-                                feedComment.map((value,index)=>(
-                                    <li className='dropli' key={index}>
-                                        <p className="dropdown-item">
-                                        {!value?.viewed && (
-                                            <span className="new-label">New</span>
-                                        )}
-                                        <p>Reply of "{value?.feedId?.feedbackComment}"</p>
-                                        {value?.message}
-                                        </p></li>
-                                ))
-                            ):(
-                                <li>
-                                <p>No Notification</p>
-                                </li>
+                            {feedComment.length > 0 || notification.length > 0 ? (
+                    <>
+                      {feedComment.map((value, index) => (
+                        <li className="dropLi" key={index}>
+                          <p className="dropdown-item">
+                            {!value?.viewed && (
+                              <span className="new-label">New</span>
                             )}
+                            <p>Reply of "{value?.feedId?.feedbackComment}"</p>
+                            {value?.message}
+                          </p>
+                        </li>
+                      ))}
+                      {notification?.map((value, index) => (
+                        <li className="dropLi" key={index}>
+                          <p className="dropdown-item">
+                            {/* {!value?.viewed && (
+                              <span className="new-label">New</span>
+                            )} */}
+                            {value?.Message}
+                          </p>
+                        </li>
+                      ))}
+                    </>
+                  ) : (
+                    <li>
+                      <p>No Notification</p>
+                    </li>
+                  )}
                             
                         </ul>
                         </li>

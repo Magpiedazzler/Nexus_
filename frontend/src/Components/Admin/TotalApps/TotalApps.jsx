@@ -9,7 +9,7 @@ export default function TotalApps() {
   const [searchQuery,setSearchQuery]=useState("")
   useEffect(()=>{
     totalApplications().then((value)=>{
-      setAppDetails(value.data.data)
+      setAppDetails(value.data.Data)
     })
   },[]);
 

@@ -90,3 +90,17 @@
 #addiv{
     margin-top: -700px;
 }
+#admnnotif{
+    position: relative;
+    top: 50px;
+    height: 40px;
+    width: 300px;
+    left: 50px;
+    border-radius: 5px;
+    font-size: 16px;
+    padding-left: 10px;
+}
+#admnnotif option{
+    background-color: #31363f9b;
+    color: #EEEEEE;
+}

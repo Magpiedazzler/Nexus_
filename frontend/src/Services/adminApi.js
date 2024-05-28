@@ -20,6 +20,14 @@ export const sendComments=(value,feedId,userId)=>{
     return adminInstance.post(`/sendComments/${feedId}`,{value,userId})
 }
 
+export const sendNotification=(data)=>{
+    return adminInstance.post("/sendNotification",{...data})
+}
+
+export const bannerUpload=(values)=>{
+    return adminInstance.post(`/upload/`,{...values},{headers:{"Content-Type":"multipart/form-data"}})
+}
+
 
 //GET METHODS
 
@@ -67,4 +75,12 @@ export const fetchUserFeedback=()=>{
 export const fetchFeedDetails=(id)=>{
     console.log(id,"^^^^^");
     return adminInstance.get(`/fetchFeedback/${id}`)
+}
+
+export const getPieChartDetails=()=>{
+    return adminInstance.get("/getPieChartDetails")
+}
+
+export const getBarChartDetails=()=>{
+    return adminInstance.get("/getbarChartDetails")
 }

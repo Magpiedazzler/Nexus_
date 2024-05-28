@@ -1,0 +1,58 @@
+#div2{
+    margin-top: -600px;
+}
+#form3{
+    position: relative;
+    left: 100px;
+    top: 20px;
+    background-color: #31363f8f;
+    width: 1200px;
+    border-radius: 5px;
+    color: #EEEEEE;
+    margin-bottom: 10px;
+}
+#subbtn{
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #31363F;
+    color: #EEEEEE;
+    font-size: 18px;
+    position: relative;
+    left: 510px;
+    top: -10px;
+}
+#subbtn:hover{
+    background-color: #EEEEEE;
+    box-shadow: 2px 3px 4px;
+    color: #31363F;
+}
+#upbtn1{
+    margin-left: 40px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, rgba(0,1,255,1) 0%, rgba(9,17,121,1) 50%, rgba(2,0,36,1) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.uploadButtons{
+    display: inline-block;
+    position: relative;
+}
+#upbtn-label1 {
+    display: inline-block;
+    padding: 8px 20px;
+    color: #fff;
+    background-color: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    left: 20px;
+    font-style: italic;
+  }
+  
+#upbtn1:hover {
+    box-shadow: 2px 3px 4px black;
+  }

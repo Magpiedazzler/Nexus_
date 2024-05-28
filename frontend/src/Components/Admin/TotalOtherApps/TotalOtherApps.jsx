@@ -11,6 +11,7 @@ export default function TotalOtherApps() {
     fetchAllUtilityApps().then((value)=>{
       if(value?.data?.status){
         setUtilityApp(value?.data?.data)
+        console.log(value?.data?.data,"vjhvjvajb")
       }
     })
   },[])
@@ -20,11 +21,11 @@ export default function TotalOtherApps() {
   },[selectedOS,searchQuery,utilityApp]);
   
   const handleOSChange=(e)=>{
-    setSelectedOS(e.tartget.value)
+    setSelectedOS(e.target.value)
   };
 
   const handleSearchChange=(e)=>{
-    setSearchQuery(e.tartget.value)
+    setSearchQuery(e.target.value)
   };
 
   const filterGames=()=>{

@@ -1,6 +1,8 @@
 import React from 'react'
 import './AdminHome.css'
 import {Link} from 'react-router-dom'
+import PiChart from '../PieChart/PieChart'
+import Chart from '../Chart/Chart'
 
 export default function AdminHome() {
   return (
@@ -49,10 +51,10 @@ export default function AdminHome() {
             <div className="container">
                 <div className="row">
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <h1>Hai</h1>
+                        <h1><PiChart/></h1>
                     </div>
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <h2>hello</h2>
+                        <h2><Chart/></h2>
                     </div>
                 </div>
             </div>

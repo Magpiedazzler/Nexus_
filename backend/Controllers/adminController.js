@@ -5,7 +5,11 @@ const appReport=require("../Models/reportAppModel")
 const appModel=require("../Models/appModel")
 const feedbackModel=require("../Models/userFeedbackModel")
 const adminCommentModel=require("../Models/adminFeedCommentModel")
-const bcrypt=require("bcrypt")
+const bcrypt=require("bcrypt");
+const path=require("path")
+const adminNotificationModel = require("../Models/adminNotificationModel");
+const wishListModel = require("../Models/wishListModel");
+const bannerModel = require("../Models/bannerModel");
 const maxAge=24*60*60
 
 const createAdminToken=(id)=>{
@@ -215,6 +219,86 @@ module.exports.fetchFeedComment=async(req,res)=>{
     }
     
   } catch (error) {
+    console.log(error);
+    return res.json({message:"Internal server error",status:false})
+  }
+}
+
+module.exports.sendNotification=async(req,res)=>{
+  try{
+    console.log(req.body,"DDDYYY")
+    const {type,userId,message}=req.body
+    const newNotification=new adminNotificationModel({
+      notificationType:type,
+      ReceieverId:userId,
+      Message:message
+    })
+    const data=await newNotification.save()
+    if(data){
+      return res.json({message:"Notification sended successfully",status:true,data})
+      }else{
+        return res.json({message:"Failed to send Notification",status:false})
+      }
+      
+    } catch (error) {
+      console.log(error);
+      return res.json({message:"Internal server error",status:false})
+  }
+}
+
+module.exports.PieChartDetails=async(req,res)=>{
+  try {
+    const totalApps = await appModel.find().count()
+    const gamesApps =await appModel.find({ Category: "Game"}).count()
+    const utilityApps=await appModel.find({ Category: "Utilities"}).count()
+    const macApps=await appModel.find({OS:"MAC"}).count()
+    const windowsApps=await appModel.find({OS:"Windows"}).count()
+    const linuxApps=await appModel.find({OS:"Linux"}).count()
+
+    return res.json({status:true,totalApps,gamesApps,utilityApps,macApps,windowsApps,linuxApps})
+
+  } catch (error) {
+    console.log(error);
+    return res.json({message:"Internal server error",status:false})
+  }
+}
+
+module.exports.BarChartDetails=async(req,res)=>{
+  try {
+    const userCount=await userModel.find().count()
+    const approvedApps=await appModel.find({verified:true}).count()
+    const rejectedApps=await appModel.find({verified:false}).count()
+    const totalReports=await appReport.find().count()
+    const userFeedback=await feedbackModel.find().count()
+    const wishlistApps=await wishListModel.find().count()
+    return res.json({message:"Success",status:true,userCount,approvedApps,rejectedApps,totalReports,userFeedback,wishlistApps})
+    
+  } catch (error) {
+    console.log(error);
+    return res.json({message:"Internal server error",status:false})
+  }
+}
+
+module.exports.bannerUpload=async(req,res)=>{
+  try{
+    const extractImageUrl=(fullPath)=>{
+      const relativePath=path.relative("public/images",fullPath)
+      const imageUrl=relativePath.replace(/\\/g,"/")
+      return imageUrl
+    }
+    const bannerFile=req.files.bannerFile.map((file)=>file.path)
+    console.log(bannerFile,"jgjajfha")
+    const bannerDetails=new bannerModel({
+      
+      bannerFile:extractImageUrl(bannerFile[0])
+    });
+    const data =await bannerDetails.save()
+    return res.json({
+      message:"Banner uploaded successfully",
+      status:true,
+      data
+    });
+  }catch(error){
     console.log(error);
     return res.json({message:"Internal server error",status:false})
   }

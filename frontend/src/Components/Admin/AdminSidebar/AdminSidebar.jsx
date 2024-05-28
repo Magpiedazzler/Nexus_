@@ -17,10 +17,12 @@ export default function AdminSidebar() {
                                 </button>
                                 <ul class="dropdown-menu">
                                 <Link to={'../app_management'} id='link'><li><i class="bi bi-gear-wide-connected" id='i1'></i>App Hub</li></Link>
+                                <Link to={'../upload_app'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Upload App</li></Link>
+                                <Link to={'../update_app'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Update App</li></Link>
                                 <Link to={'../feedback_view'} id='link'><li><i class="bi bi-chat-fill" id='i1'></i>Feedback</li></Link>
                                 <Link to={'../compliant'} id='link'><li><i class="bi bi-shield-fill-exclamation" id='i1'></i>Compliant</li></Link>
+                                <Link to={'../banner'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Upload Banner</li></Link>
                                 <Link to={'../about'} id='link'><li><i class="bi bi-file-person-fill" id='i1'></i>About</li></Link>
-                                <Link to={'../help'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Get Help</li></Link>
                                 </ul>
                             </div>
                         </div>

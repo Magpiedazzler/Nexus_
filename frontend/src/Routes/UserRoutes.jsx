@@ -13,6 +13,8 @@ import LibraryPage from '../Pages/User/LibraryPage'
 import ProfilePage from '../Pages/User/ProfilePage'
 import EditProfilePage from '../Pages/User/EditProfilePage'
 import UpdatePage from '../Pages/User/UpdatePage'
+import UploadFilePage from '../Pages/User/UploadFilePage'
+import ForgotPasswordPage from '../Pages/User/ForgotPasswordPage'
 
 function UserRoutes() {
   return (
@@ -31,6 +33,8 @@ function UserRoutes() {
         <Route path='/profile' element={<ProfilePage/>}/>
         <Route path='/edit_profile' element={<EditProfilePage/>}/>
         <Route path='/update' element={<UpdatePage/>}/>
+        <Route path='/update_file/:id' element={<UploadFilePage/>}/>
+        <Route path='/forgot_pswd' element={<ForgotPasswordPage/>}/>
       </Routes>
     </div>
   )

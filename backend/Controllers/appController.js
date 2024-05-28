@@ -6,7 +6,7 @@ const userModel=require("../Models/userModel")
 
 module.exports.showAllApps=async(req,res)=>{
     try{
-        const data=await appModel.find();
+        const data=await appModel.find({verified:true});
         if(data){
             return res.json({data,status:true})
         }else{
@@ -40,7 +40,7 @@ module.exports.FetchGames = async (req, res) => {
   
   module.exports.UtilityApps = async (req, res) => {
     try {
-      const data = await appModel.find({ Category: "Utilities",verified:true });
+      const data = await appModel.find({ Category: "Utilities" });
       if (data) {
         return res.json({ data, status: true });
       } else {

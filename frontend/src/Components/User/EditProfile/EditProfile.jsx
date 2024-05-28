@@ -110,7 +110,8 @@ export default function EditProfile() {
                         <div id='uploadButton'>
                           <input type="file" id='epbtn' name='profileImage'
                           onChange={(event)=>formik.setFieldValue("profileImage",event.currentTarget.files[0])}/>
-                          <div id='upbtn-label'>Choose Image</div>
+                          {/* <div id='upbtn-label'>Choose Image</div> */}
+                          <label for="epbtn" class="custom-image-input">Choose Image</label>
                           {formik.touched.profileImage && formik.errors.profileImage ?(
                               <p className='text-danger errorMsg' style={{fontSize:"12px",margin:"0px",position:"relative",top:"-110px",left:"200px"}}>
                                 {formik.errors.profileImage}

@@ -7,7 +7,7 @@ export default function CompliantCheck() {
     useEffect(()=>{
         viewCompliant().then((value)=>{
             if(value?.data?.status){
-                setCompliants(value?.data?.data)
+                setCompliants(value?.data?.complaintDetails)
             }
         })
     },[])

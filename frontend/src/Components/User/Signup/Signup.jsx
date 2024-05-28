@@ -14,6 +14,8 @@ function Signup() {
     username:"",
     contactNo:"",
     email:"",
+    secretQuestion:"",
+    answer:"",
     password:"",
     confirmPassword:"",
   };
@@ -36,6 +38,11 @@ function Signup() {
     email:Yup.string()
       .email("* Invalid email format")
       .required("* This fiels id required"),
+    secretQuestion:Yup.string()
+      .notOneOf(["Choose Question"],"* This field is required")
+      .required("* This filed is required"),
+    answer:Yup.string()
+      .required("* This field is required"),
     password:Yup.string()
       .min(6,"* Password must be atleast 6 charecters long")
       .matches(/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\/,.<>/?]).*$/,
@@ -46,16 +53,35 @@ function Signup() {
       .required("* This field is required"),
   });
 
-  const onSubmit=async(values,{resetForm})=>{
-    console.log(values,"88888888888888888");
-    const data=await userRegister(values);
-    console.log(data);
-    if(data.data.status){
-      toast.success("Login successfully")
-      resetForm()
-      navigate("/login")
-    }else{
-      toast.console.error("Unable to login");
+  // const onSubmit=async(values,{resetForm})=>{
+  //   console.log(values,"88888888888888888");
+  //   const data=await userRegister(values);
+  //   console.log(data);
+  //   if(data.data.status){
+  //     toast.success("Login successfully")
+  //     resetForm()
+  //     navigate("/login")
+  //   }else{
+  //     toast.console.error("Unable to login");
+  //   }
+  // };
+
+  const onSubmit = async (values, { resetForm }) => {
+    try {
+      console.log("Form Values:", values);
+      const data = await userRegister(values);
+      console.log("Response Data:", data);
+      console.log(data.data.status,"data")
+      if (data.data.status) {
+        toast.success("Registration successful");
+        resetForm();
+        navigate("/login");
+      } else {
+        toast.error("Registration failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred. Please try again.");
     }
   };
 
@@ -99,6 +125,33 @@ function Signup() {
           {formik.errors.email}
         </p>
       ):null}
+      <select name="secretQuestion" id="qsn" placeholder='Secret Question'
+      onBlur={formik.handleBlur}
+      onChange={formik.handleChange}
+      value={formik.values.secretQuestion}>
+      <option value="Choose Question">Choose Question</option>
+        <option value="Who was your childhood hero?">Who was your childhood hero?</option>
+        <option value="What was your first job?">What was your first job?</option>
+        <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+        <option value="What was your Birth place?">What was your Birth place?</option>
+      </select>
+      <br /><hr id='line'/>
+      {formik.touched.secretQuestion && formik.errors.secretQuestion ?(
+        <p className='text-danger errorMsg' style={{fontSize:"12px",margin:"0px",position:"relative",left:"95px",top:"5px"}}>
+          {formik.errors.secretQuestion}
+        </p>
+      ):null}<br />
+      <input type="text" name="answer" id="ans" placeholder='Answer'
+      onBlur={formik.handleBlur}
+      onChange={formik.handleChange}
+      value={formik.values.answer}/>
+      <br /><hr id='line'/>
+      {formik.touched.answer && formik.errors.answer ?(
+        <p className='text-danger errorMsg' style={{fontSize:"12px",margin:"0px",position:"relative",left:"95px",top:"5px"}}>
+          {formik.errors.answer}
+        </p>
+      ):null}
+      <br />
       <input type="password" name="password" id="pswd1" placeholder='Create Password'
       onBlur={formik.handleBlur}
       onChange={formik.handleChange}

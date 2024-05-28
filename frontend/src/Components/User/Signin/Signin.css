@@ -9,7 +9,7 @@
 #t1{
     color: white;
     position: relative;
-    left: 200px;
+    left: 195px;
     top:50px;
 }
 #submit{
@@ -49,12 +49,18 @@
     left:100px;
     border:1px solid white
 }
-#crt{
+#fcrt{
     color: white;
     position: relative;
-    top: 35px;
-    left: 215px;
+    top: 40px;
+    left: 100px;
 }
-#crt:hover{
+#ffcrt{
+    color: white;
+    position: relative;
+    top: 40px;
+    left: 165px;
+}
+#ffcrt:hover,#fcrt:hover{
     color: blue;
 }

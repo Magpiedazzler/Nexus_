@@ -5,7 +5,7 @@ import { fetchFeedDetails, sendComments } from '../../../Services/adminApi'
 import { toast } from 'react-toastify'
 
 export default function FeedbackCheck() {
-    const [feedback,setFeedback]=useState([])
+    const [feedback,setFeedback]=useState(null)
     const [comment,setComment]=useState("")
     const {id:feedId}=useParams()
     useEffect(()=>{

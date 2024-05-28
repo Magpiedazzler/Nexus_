@@ -36,7 +36,7 @@ export default function AdminLogin() {
   });
 
   const onSubmit=async (values)=>{
-    const [data]=await adminLogin(values)
+    const {data}=await adminLogin(values)
     console.log(data.adminDetails)
     if(data.status){
       dispatch(setAdminDetails(data?.adminDetails))
@@ -59,7 +59,7 @@ export default function AdminLogin() {
     <div>
       <form onSubmit={formik.handleSubmit} id="adform1">
       <h1 id='adt1'>Admin Login</h1><br /><br />
-      <input type="text" name="username" id="adusername" placeholder='Username'
+      <input type="text" name="email" id="adusername" placeholder='Username'
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       value={formik.values.email}/>

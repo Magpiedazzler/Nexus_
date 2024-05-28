@@ -43,7 +43,7 @@ export default function Signin() {
         resetForm()
         navigate("/")
       }else{
-        toast.console.error(data.message,{position:"top-right"});
+        toast.error(data.message,{position:"top-right"});
       }
     }catch(error){
       console.log(error);
@@ -82,7 +82,8 @@ export default function Signin() {
         </p>
       ):null}
       <input type="submit" value={"Login"} id="submit"/><br/>
-      <Link to={'../register'}><a href="./register" id='crt'>New User</a></Link>
+      <Link to={'../forgot_pswd'}><a href="./forgot_pswd" id='fcrt'>Forgot Password</a></Link>
+      <Link to={'../register'}><a href="./register" id='ffcrt'>New User</a></Link>
       </form>
     </div>
   )
