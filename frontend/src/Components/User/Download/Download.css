@@ -11,14 +11,20 @@
     position: relative;
     top: 10px;
 }
-#img1,#head1,#head2,#btn2,#lab1,#para1,#lab2,#para2,#lab3{
+#img111,#head1,#head2,#btn2,#lab1,#para1,#lab2,#para2,#lab3{
     position: relative;
     top: 100px;
 }
-#img1{
+#img111{
     height: 150px;
     width: 150px;
     border-radius: 10px;
+}
+#img2{
+    height: 180px;
+    width: auto;
+    position: relative;
+    top: -60px;
 }
 #btn2{
     height: 40px;
@@ -35,11 +41,11 @@
 #lab3{
     background-color: #31363f71;
     color: white;
-    border-radius: 20px;
+    border-radius: 5px;
     width: 150px;
     height: 30px;
 }
-#btn3,#btn4{
+#btn333,#btn4444,#btn555{
     background-color: #31363f71;
     color: white;
     border-radius: 20px;
@@ -48,13 +54,17 @@
     position: relative;
     top: 125px;
 }
-#btn4{
+#btn4444{
     margin-left: 10px;
+}
+#btn555{
+    position: relative;
+    top: 190px;
 }
 #flag{
     margin-right: 10px;
 }
-#btn3:hover,#btn4:hover{
+#btn333:hover,#btn4444:hover,#btn555:hover{
     background-color: #EEEEEE;
     color: #31363F;
     fill: red;
@@ -85,7 +95,7 @@
     background-color: #22283144;
     margin-left: 10px;
     width: 850px;
-    height: 1600px;
+    height: 900px;
     border-radius: 10px;
     box-shadow: 2px 3px 4px;
     position: relative;
@@ -186,6 +196,12 @@ left: 0px;
     border: none;
     color: #EEEEEE;
 }
-#iinp2{
 
+#downloadcate{
+    position: relative;
+    top: 30px;
+}
+#btn333,#btn4444{
+    position: relative;
+    top:165px;
 }

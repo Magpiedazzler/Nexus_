@@ -28,14 +28,16 @@ export default function TotalUsers() {
                     </tr>
                 </thead>
                 <tbody>
-                    {userDetails.map((value)=>(
+                    {userDetails.length>0?(userDetails.map((value,index)=>(
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">{index+1}</th>
                             <td>{value.username}</td>
                             <td>{value.contactNo}</td>
                             <td>{value.email}</td>
                         </tr>
-                    ))}
+                    ))):(<tr>
+                        <td colSpan="4" style={{ textAlign: 'center' }}>No users found</td>
+                      </tr>)}
                     
                 </tbody>
             </table>

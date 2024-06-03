@@ -31,7 +31,7 @@ export default function Upload() {
       .matches(/^[A-Za-z]+$/,"* Name must only contain charecters")
       .required("* This field is required"),
     appDescription:Yup.string()
-      .min(15,"* Password must be atleast 15 charecters long")
+      .min(15,"* Description must be atleast 10 charecters long")
       .required("* This field is required"),
     developerName:Yup.string()
       .required("* This field is required")
@@ -42,7 +42,6 @@ export default function Upload() {
       .min(3,"* Name must be atleast 3 charecters long"),
       //.matches(/^[A-Za-z]+$/,"* Name must only contain charecters"),
     Category:Yup.string()
-      .min(3, "*Name must be at least 3 characters long")
       .required("* This field is required"),
     OS:Yup.string()
       .required("This field is required"),

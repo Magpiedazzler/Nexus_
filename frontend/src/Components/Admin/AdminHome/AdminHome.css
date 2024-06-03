@@ -63,3 +63,15 @@
     position: relative;
     top: -40px;
 }
+
+#homedetails{
+    position: relative;
+    top: -200px;
+}
+
+#subbb{
+    height: 400px;
+    width: 1000px;
+    position: relative;
+    left: 220px;
+}

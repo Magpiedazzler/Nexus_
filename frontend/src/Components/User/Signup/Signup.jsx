@@ -156,7 +156,7 @@ function Signup() {
       onBlur={formik.handleBlur}
       onChange={formik.handleChange}
       value={formik.values.password}/>
-      <br /><hr /><br />
+      <br /><hr id='h'/><br />
       {formik.touched.password && formik.errors.password ?(
         <p className='text-danger errorMsg' style={{fontSize:"12px",margin:"0px",position:"relative",left:"95px",top:"5px"}}>
           {formik.errors.password}
@@ -166,7 +166,7 @@ function Signup() {
       onBlur={formik.handleBlur}
       onChange={formik.handleChange}
       value={formik.values.confirmPassword}/>
-      <br /><hr /><br />
+      <br /><hr id='h'/><br />
       {formik.touched.confirmPassword && formik.errors.confirmPassword ?(
         <p className='text-danger errorMsg' style={{fontSize:"12px",margin:"0px",position:"relative",left:"95px",top:"5px"}}>
           {formik.errors.confirmPassword}

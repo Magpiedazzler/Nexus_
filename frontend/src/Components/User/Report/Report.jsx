@@ -33,7 +33,6 @@ export default function Report() {
   });
 
     const onSubmit=async(values,{resetForm})=>{
-    console.log(values);
     appReport(userId,appId,values).then((values)=>{
       if(values?.data?.status){
         toast.success(values?.data?.message)
@@ -68,13 +67,13 @@ export default function Report() {
                         onChange={formik.handleChange}
                         value={formik.values.reportCategory}>
                             <option value="">Choose category</option>
-                            <option value="">Graphic violence</option>
-                            <option value="">Hateful or abusive content</option>
-                            <option value="">Improper content rating</option>
-                            <option value="">Illegal prescription or other drug</option>
-                            <option value="">Sexual content</option>
-                            <option value="">Copycat or impersonation</option>
-                            <option value="">Other objection</option>
+                            <option value="Graphic violence">Graphic violence</option>
+                            <option value="Hateful or abusive content">Hateful or abusive content</option>
+                            <option value="Improper content rating">Improper content rating</option>
+                            <option value="Illegal prescription or other drug">Illegal prescription or other drug</option>
+                            <option value="Sexual content">Sexual content</option>
+                            <option value="Copycat or impersonation">Copycat or impersonation</option>
+                            <option value="Other objection">Other objection</option>
                         </select><br /><hr id='rhr'/><br />
                         {formik.touched.reportCategory && formik.errors.reportCategory ?(
                             <p className='text-danger errorMsg' style={{fontSize:"12px",margin:"0px",position:"relative",top:"-20px",left:"50px"}}>

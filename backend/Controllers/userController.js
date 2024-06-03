@@ -8,6 +8,7 @@ const notificationModel = require("../Models/adminNotificationModel")
 const { profile } = require("console")
 const { use } = require("../Routes/userRoutes")
 const bannerModel = require("../Models/bannerModel")
+const { stat } = require("fs")
 const maxAge=24*60*60
 
 const createToken=(id)=>{
@@ -46,6 +47,41 @@ module.exports.register=async(req,res)=>{
         return res.json({message:"Internal server in sign up", status:false});
     }
 };
+
+module.exports.forgotpswd = async (req, res) => {
+  try {
+    const { email, password, secretQuestion, answer } = req.body;
+
+    const user = await userModel.findOne({ email: email });
+
+    if (user) {
+      // Check if the secret question and answer match for the same user
+      if (user.secretQuestion === secretQuestion && user.answer === answer) {
+        const salt = await bcrypt.genSalt();
+        const newPassword = await bcrypt.hash(password, salt);
+        const updatedUser = await userModel.findOneAndUpdate(
+          { email: email },
+          { $set: { password: newPassword } },
+          { new: true }
+        );
+
+        if (updatedUser) {
+          return res.json({ message: "Password changed successfully", status: true, data: updatedUser });
+        } else {
+          return res.json({ message: "Password changing failed", status: false });
+        }
+      } else {
+        return res.json({ message: "Secret question or answer is incorrect!", status: false });
+      }
+    } else {
+      return res.json({ message: "Invalid email address!", status: false });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error", status: false });
+  }
+};
+
 
 module.exports.login=async(req,res)=>{
     try{
@@ -109,6 +145,48 @@ module.exports.appUpload=async(req,res)=>{
         return res.json({message:"App uploaded Failed",status:false})
       }
 };
+
+
+module.exports.appUpdate = async (req, res) => {
+    try {
+      const appId = req.params.appId;
+      const extractImageUrl = (fullPath) => {
+        const relativePath = path.relative("public/images", fullPath);
+        const imageUrl = relativePath.replace(/\\/g, "/");
+        return imageUrl;
+        };
+      // Ensure each file type exists before mapping
+      const appFile =  req.files.appFile.map(file => (file.path))
+    const appIcon = req.files.appIcon.map(file => (file.path)) 
+    const appScreenshots = req.files.appScreenshots.map(file => (file.path))
+
+  
+      // Debug log to ensure paths are correct
+      console.log({ appFile, appIcon, appScreenshots },"Types");
+  
+      const updatedApp = await appModel.findOneAndUpdate(
+        { _id: appId },
+        {
+          $set: {
+            apkFile: extractImageUrl(appFile[0]),
+            appIcon: extractImageUrl(appIcon[0]),
+            appScreenshot: extractImageUrl(appScreenshots[0]),
+          }
+        },
+        { new: true }
+      );
+  console.log(updatedApp,"77777777777777");
+      if (updatedApp) {
+        return res.json({ message: "App updated successfully", status: true, data: updatedApp });
+      } else {
+        return res.json({ message: "App updation failed", status: false });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal server error", status: false });
+    }
+  };
+  
 
 module.exports.Header=async(req,res)=>{
     try{
@@ -250,9 +328,7 @@ module.exports.getUploadApps=async(req,res)=>{
 
 module.exports.getBanner=async(req,res)=>{
     try{
-        const bannerId=req.body._id
-        console.log(bannerId,"55555555555")
-        const data =await bannerModel.find({bannerId})
+        const data =await bannerModel.find()
         console.log(data,"backendssss")
         if(data){
             return res.json({message:"success",data,status:true})

@@ -13,6 +13,7 @@ import EditProfilePage from "./Pages/User/EditProfilePage";
 import UpdatePage from "./Pages/User/UpdatePage";
 import UploadFilePage from "./Pages/User/UploadFilePage";
 import ForgotPasswordPage from "./Pages/User/ForgotPasswordPage";
+import RatingPage from "./Pages/User/RatingPage";
 import AdminLoginPage from "./Pages/Admin/AdminLoginPage";
 import AdminHomePage from "./Pages/Admin/AdminHomePage";
 import AdminAppManagementPage from "./Pages/Admin/AdminAppManagementPage";

@@ -1,4 +1,4 @@
-#hm,#ap,#gm,#lb,#hp{
+#hm,#appp,#gmmm,#lbbb,#hppp{
     height: 60px;
     width: 60px;
     display: flex;
@@ -11,17 +11,31 @@
     border: none;
     color: #222831;
 }
-#ap{
+#appp{
     top: 60px;
+    left: -68px;
+    width: auto;
 }
-#gm{
+#gmmm{
     top: 80px;
+    left: -71px;
+    padding-left: 2px;
+    padding-right: 0px;
+    width: auto;
 }
-#lb{
-    top: 260px;
+#lbbb{
+    top: 200px;
+    left: -75px;
+    padding-left: 3px;
+    padding-right: 0px;
+    width: auto;
 }
-#hp{
-    top: 290px;
+#hppp{
+    top: 220px;
+    left: -74px;
+    padding-right: 4px;
+    padding-top: 2px;
+    width: auto;
 }
 #home,#app,#game,#library,#more{
     font-size: 20px;
@@ -38,12 +52,13 @@
 .btn.dropdown-toggle::after {
     display: none;
 }
-.dropdown-menu{
-    background-color: #222831;
+#moremenu{
+    background-color: #22283172;
     color: #EEEEEE;
     border-radius: 4px;
     justify-content: center;
-    height: 120px;
+    height: 180px;
+    width: 180px;
 }
 .dropdown-menu li{
     margin-top: 10px;
@@ -55,4 +70,9 @@
 }
 #link{
     text-decoration: none;
+}
+
+#appp:hover,#gmmm:hover,#lbbb:hover,#hppp:hover{
+    box-shadow: 2px 3px 4px;
+    border-radius: 0px;
 }

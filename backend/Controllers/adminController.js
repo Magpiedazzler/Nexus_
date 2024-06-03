@@ -303,3 +303,96 @@ module.exports.bannerUpload=async(req,res)=>{
     return res.json({message:"Internal server error",status:false})
   }
 }
+
+module.exports.appUploads=async(req,res)=>{
+  try {
+      const userId=req?.params?.userId
+      const extractImageUrl = (fullPath) => {
+        const relativePath = path.relative("public/images", fullPath);
+        const imageUrl = relativePath.replace(/\\/g, "/");
+        return imageUrl;
+      };
+      const appFile=req.files.appfile.map(file => file.path)
+      const appIcon=req.files.appIcon.map(file => file.path)
+      const appScreenshots=req.files.appScreenshots.map(file => file.path)
+  
+          const applicationDetails=new appModel({
+          userId:userId,
+          appName:req.body.appName,
+          appDescription:req.body.appDescription,
+          apkFile:extractImageUrl(appFile[0]),
+          devName:req.body.developerName,
+          publisherName:req.body.publisherName,
+          Category:req.body.Category,
+          OS:req.body.OS,
+          appScreenshot:extractImageUrl(appScreenshots[0]),
+          appIcon:extractImageUrl(appIcon[0]),
+          verified:"true",
+      })
+      
+      const data=await applicationDetails.save()
+      return res.json({message:"App uploaded successfully",status:true,data})
+      
+    } catch (error) {
+      console.log(error);
+      return res.json({message:"App uploaded Failed",status:false})
+    }
+};
+
+module.exports.getUploadApps=async(req,res)=>{
+  try{
+      const userId=req.params.userId;
+      const data =await  appModel.find({userId})
+      console.log(data,"app data")
+      if(data){
+          return res.json({message:"success",data,status:true})
+      }else{
+          return res.json({
+              message:"Unable to find apps", status:false,
+          });
+      }
+  }catch(error){
+      console.log(error);
+      return res.json({ message: "Internal server error", status: false }); 
+  }
+}
+
+module.exports.appUpdates = async (req, res) => {
+  try {
+    const appId = req.params.appId;
+    const extractImageUrl = (fullPath) => {
+      const relativePath = path.relative("public/images", fullPath);
+      const imageUrl = relativePath.replace(/\\/g, "/");
+      return imageUrl;
+      };
+    // Ensure each file type exists before mapping
+    const appFile =  req.files.appFile.map(file => (file.path))
+  const appIcon = req.files.appIcon.map(file => (file.path)) 
+  const appScreenshots = req.files.appScreenshots.map(file => (file.path))
+
+
+    // Debug log to ensure paths are correct
+    console.log({ appFile, appIcon, appScreenshots },"Types");
+
+    const updatedApp = await appModel.findOneAndUpdate(
+      { _id: appId },
+      {
+        $set: {
+          apkFile: extractImageUrl(appFile[0]),
+          appIcon: extractImageUrl(appIcon[0]),
+          appScreenshot: extractImageUrl(appScreenshots[0]),
+        }
+      },
+      { new: true }
+    );
+console.log(updatedApp,"77777777777777");
+    if (updatedApp) {
+      return res.json({ message: "App updated successfully", status: true, data: updatedApp });
+    } else {
+      return res.json({ message: "App updation failed", status: false });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error", status: false });
+  }
+};

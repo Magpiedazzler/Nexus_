@@ -48,7 +48,7 @@ export default function AdminRoutes() {
         <Route path='/banner' element={<AdminBannerPage/>}/>
         <Route path='/upload_app' element={<AdminAppUploadPage/>}/>
         <Route path='/update_app' element={<AdminUpdateAppPage/>}/>
-        <Route path='/update_appfile' element={<AdminUpdateAppFilePage/>}/>
+        <Route path='/update_appfile/:id' element={<AdminUpdateAppFilePage/>}/>
 
       </Routes>
     </div>

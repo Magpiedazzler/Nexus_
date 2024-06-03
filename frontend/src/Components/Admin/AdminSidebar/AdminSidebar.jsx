@@ -15,14 +15,13 @@ export default function AdminSidebar() {
                                 <button id='hp' type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots" id='more'><br />More</i><br /><br />
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" id='admsidemenu'>
                                 <Link to={'../app_management'} id='link'><li><i class="bi bi-gear-wide-connected" id='i1'></i>App Hub</li></Link>
-                                <Link to={'../upload_app'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Upload App</li></Link>
-                                <Link to={'../update_app'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Update App</li></Link>
+                                <Link to={'../upload_app'} id='link'><li><i class="bi bi-upload" id='i1'></i>Upload App</li></Link>
+                                <Link to={'../update_app'} id='link'><li><i class="bi bi-app-indicator" id='i1'></i>Update App</li></Link>
                                 <Link to={'../feedback_view'} id='link'><li><i class="bi bi-chat-fill" id='i1'></i>Feedback</li></Link>
                                 <Link to={'../compliant'} id='link'><li><i class="bi bi-shield-fill-exclamation" id='i1'></i>Compliant</li></Link>
-                                <Link to={'../banner'} id='link'><li><i class="bi bi-person-raised-hand" id='i1'></i>Upload Banner</li></Link>
-                                <Link to={'../about'} id='link'><li><i class="bi bi-file-person-fill" id='i1'></i>About</li></Link>
+                                <Link to={'../banner'} id='link'><li><i class="bi bi-file-earmark-arrow-up" id='i1'></i>Upload Banner</li></Link>
                                 </ul>
                             </div>
                         </div>

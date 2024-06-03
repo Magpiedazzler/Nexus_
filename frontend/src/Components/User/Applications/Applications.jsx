@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import "./Applications.css"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { appAddtoProfile, getUtilityApps } from '../../../Services/userApi'
+import { appAddtoProfile, getBanner, getUtilityApps } from '../../../Services/userApi'
 
 export default function Applications() {
+    const [bannerImages, setBannerImages] = useState([]);
     const [utilityApp,setUtilityApp]=useState([])
     const [filteredApps,setFilteredApps]=useState([])
     const [selectedOS,setSelectedOS]=useState("")
@@ -17,6 +18,16 @@ export default function Applications() {
             setFilteredApps(value?.data?.data)
         })
     },[]);
+
+    useEffect(() => {
+      getBanner().then((response) => {
+          console.log(response.data.data,"!!!!!!!!!!!!!!!!!!!!!~~~~")
+          if (response?.data?.status) {
+           
+              setBannerImages(response.data.data);
+          }
+      });
+  }, []);
 
     useEffect(() => {
         filterGames();
@@ -80,22 +91,33 @@ export default function Applications() {
                     <button id='usearchicon'><i class="bi bi-search" id='usearch1'></i></button>
                     </div>
                     <div id="carouselExampleIndicators" class="carousel slide">
-                        <div class="carousel-indicators" id=''>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner" id='sub'>
-                            <div class="carousel-item active">
-                            <img src="" class="d-block w-100" alt="First"/>
-                            </div>
-                            <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Second"/>
-                            </div>
-                            <div class="carousel-item">
-                            <img src="" class="d-block w-100" alt="Third"/>
-                            </div>
-                        </div>
+                    <div className="carousel-indicators">
+                                    {bannerImages.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            type="button"
+                                            data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to={index}
+                                            className={index === 0 ? "active" : ""}
+                                            aria-current={index === 0 ? "true" : ""}
+                                            aria-label={`Slide ${index + 1}`}
+                                        ></button>
+                                    ))}
+                                </div>
+                                <div className="carousel-inner" id="sub">
+                                    {bannerImages.map((value, index) => (
+                                        <div
+                                            className={`carousel-item ${index === 0 ? "active" : ""}`}
+                                            key={index}
+                                        >
+                                            <img
+                                                src={`http://localhost:4000/img/${value?.bannerFile}`}
+                                                className="d-block w-100"
+                                                alt={`Slide ${index + 1}`}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>

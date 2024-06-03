@@ -1,21 +1,30 @@
-const {Header, register, login, appUpload, userFeedback, updateProfile, appAddtoUser, fetchUserInstalledApps, getNotification, getUploadApps, getBanner}=require("../Controllers/userController")
+const {Header, register, login, appUpload, userFeedback, updateProfile, appAddtoUser, fetchUserInstalledApps, getNotification, getUploadApps, getBanner, appUpdate, forgotpswd}=require("../Controllers/userController")
 const userAuth=require("../Middleware/userAuth")
 const createMulterInstance=require("../Middleware/multer")
 const userProfileImage = createMulterInstance("UserProfileImages");
 const express=require("express")
 const router=express.Router()
 const appDetails=createMulterInstance("AppDetails")
+const appUpdateDetails=createMulterInstance("UpdateDetails")
 const multer =require("multer")
-const {showAllApps, getWishlistApp, appReport, addToWishlist, UtilityApps, GameApps, selectedApps} =require("../Controllers/appController")
+const {showAllApps, getWishlistApp, appReport, addToWishlist, UtilityApps, GameApps, selectedApps, appRating} =require("../Controllers/appController")
 const { fetchFeedComment } = require("../Controllers/adminController")
 
 router.post('/register',register)
+router.post('/forgotpswd',forgotpswd)
 router.post('/login',login)
 router.post("/upload/:userId",userAuth,appDetails.fields([
     {name:"appfile",maxCount:1},
     {name:"appIcon",maxCount:1},
     {name:"appScreenshots",maxCount:1},
 ]),appUpload);
+
+router.post('/updateFile/:appId',userAuth,appUpdateDetails.fields([
+    {name:"appFile",maxCount:1},
+    {name:"appIcon",maxCount:1},
+    {name:"appScreenshots",maxCount:1},
+]),appUpdate);
+
 router.post('/feedback/:userId',userAuth,userFeedback)
 router.post("/profileUpdation/:userId",
     userAuth,
@@ -24,6 +33,7 @@ router.post("/profileUpdation/:userId",
 )
 router.post("/addApptoUser",userAuth,appAddtoUser)
 router.post("/report",userAuth,appReport)
+router.post("/rating",userAuth,appRating)
 router.post("/addToWishist/:userId",userAuth,addToWishlist)
 
 router.get("/header",userAuth,Header)

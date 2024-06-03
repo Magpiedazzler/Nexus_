@@ -28,7 +28,7 @@ export default function Feedback() {
     const validationSchema=Yup.object({
         comments:Yup.string()
         .required("*This field is required")
-        .min(3,"*Name must be atleast3 charecter long")
+        .min(3,"* Comments must be atleast 3 charecter long")
     });
 
     const onSubmit=async(values,{resetForm})=>{

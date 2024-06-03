@@ -65,7 +65,9 @@ export default function WindowsApps() {
                     <td>{value?.Category}</td>
                     </tr>
                   ))
-                ):(<p>Empty</p>)}
+                ):(<tr>
+                  <td colSpan="4" style={{ textAlign: 'center' }}>Empty</td>
+                </tr>)}
                     
                 </tbody>
             </table>

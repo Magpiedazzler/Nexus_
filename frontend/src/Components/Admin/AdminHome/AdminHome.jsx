@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './AdminHome.css'
 import {Link} from 'react-router-dom'
 import PiChart from '../PieChart/PieChart'
 import Chart from '../Chart/Chart'
+import { getBanner } from '../../../Services/userApi'
 
 export default function AdminHome() {
+    const [bannerImages, setBannerImages] = useState([]);
+    useEffect(() => {
+        getBanner().then((response) => {
+            console.log(response.data.data,"!!!!!!!!!!!!!!!!!!!!!~~~~")
+            if (response?.data?.status) {
+             
+                setBannerImages(response.data.data);
+            }
+        });
+    }, []);
   return (
     <div>
         <div class="div2" id='div2'>
@@ -21,20 +32,29 @@ export default function AdminHome() {
             <section>
                 <div id="carouselExampleIndicators" class="carousel slide">
                     <div class="carousel-indicators" id=''>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    {bannerImages.map((_, index) => (
+                        <button
+                            key={index}
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to={index}
+                            className={index === 0 ? "active" : ""}
+                            aria-current={index === 0 ? "true" : ""}
+                            aria-label={`Slide ${index + 1}`}
+                        ></button>
+                    ))}
                     </div>
-                    <div class="carousel-inner" id='sub'>
-                        <div class="carousel-item active">
-                        <img src="" class="d-block w-100" alt="First"/>
+                    <div class="carousel-inner" id='subbb'>
+                    {bannerImages.map((value, index) => (
+                        <div
+                            className={`carousel-item ${index === 0 ? "active" : ""}`}
+                            key={index}>
+                            <img
+                                src={`http://localhost:4000/img/${value?.bannerFile}`}
+                                className="d-block w-100"
+                                alt={`Slide ${index + 1}`}/>
                         </div>
-                        <div class="carousel-item">
-                        <img src="" class="d-block w-100" alt="Second"/>
-                        </div>
-                        <div class="carousel-item">
-                        <img src="" class="d-block w-100" alt="Third"/>
-                        </div>
+                    ))}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -66,7 +86,7 @@ export default function AdminHome() {
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-box"></i></h5>
-                                <p class="card-text">Total number of apps</p>
+                                <p class="card-text">All apps</p>
                                 <Link to={'../app_details'} id='link'><a href="#" class="btn btn-primary">View</a></Link>
                             </div>
                         </div>
@@ -75,7 +95,7 @@ export default function AdminHome() {
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-controller"></i></h5>
-                                <p class="card-text">Total No of Gaming apps</p>
+                                <p class="card-text">Gaming apps</p>
                                 <Link to={'../game_details'} id='link'><a href="#" class="btn btn-primary">View</a></Link>
                             </div>
                         </div>
@@ -84,7 +104,7 @@ export default function AdminHome() {
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-app"></i></h5>
-                                <p class="card-text">Total number of utility apps</p>
+                                <p class="card-text">Utility apps</p>
                                 <Link to={'../utilityapp_details'} id='link'><a href="#" class="btn btn-primary">View</a></Link>
                             </div>
                         </div>
@@ -102,13 +122,13 @@ export default function AdminHome() {
             </div>
             </section>
             <section>
-            <div className="container">
+            <div className="container" id='homedetails'>
                 <div className="row">
                     <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-windows"></i></h5>
-                                <p class="card-text">Total number of Windows apps</p>
+                                <p class="card-text">Windows apps</p>
                                 <Link to={'../windowsapp_details'} id='link'><a href="#" class="btn btn-primary">View</a></Link>
                             </div>
                         </div>
@@ -117,7 +137,7 @@ export default function AdminHome() {
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-ubuntu"></i></h5>
-                                <p class="card-text">Total number of Linux apps</p>
+                                <p class="card-text">Linux apps</p>
                                 <Link to={'../linuxapp_details'} id='link'><a href="#" class="btn btn-primary">View</a></Link>
                             </div>
                         </div>
@@ -126,7 +146,7 @@ export default function AdminHome() {
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-apple"></i></h5>
-                                <p class="card-text">Total number of MAC apps</p>
+                                <p class="card-text">MAC apps</p>
                                 <Link to={'../macapp_details'} id='link'><a href="#" class="btn btn-primary">View</a></Link>
                             </div>
                         </div>

@@ -62,7 +62,7 @@ export default function AppManagement() {
                                     Approved
                                   </span>
                                 ):(
-                                    <button id='amb2' onClick={() => {approveApplication(value?._id);}}><i class="bi bi-clipboard-check" id='ami1'></i>Approve</button>
+                                    <button id='amb23' onClick={() => {approveApplication(value?._id);}}><i class="bi bi-clipboard-check" id='ami1'></i>Approve</button>
                                 )}
                                 
                                 <button id='amb3' onClick={()=>applicationBlock(value?._id)}><i class="bi bi-ban" id='ami1'></i>Block</button>

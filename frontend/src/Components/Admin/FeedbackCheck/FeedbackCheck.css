@@ -5,7 +5,7 @@
     top: 20px;
     border-radius: 10px;
     color: #EEEEEE;
-    height: 650px;
+    height: auto;
     width: 1250px;
     bottom: 10px;
 }
@@ -45,7 +45,7 @@
 #fct5{
     position: relative;
     left: 50px;
-    top: 30px;
+    top: -70px;
     height: 100px;
     width: 750px;
     font-size: 18px;
@@ -55,7 +55,7 @@
 #fcb1{
     position: relative;
     left: 650px;
-    top: 35px;
+    top: -70px;
     height: 40px;
     width: 100px;
     border-radius: 7px;

@@ -28,6 +28,15 @@ export const bannerUpload=(values)=>{
     return adminInstance.post(`/upload/`,{...values},{headers:{"Content-Type":"multipart/form-data"}})
 }
 
+export const appregistration=(values,userID)=>{
+    console.log(values,"8888888888888888 ")
+    return adminInstance.post(`/upload_app/${userID}`,{...values},{headers:{"content-Type":"multipart/form-data"}})
+}
+
+export const appupdated=(values,appId)=>{
+    console.log(values,"jghjgajhgjgasjhdgjh")
+    return adminInstance.post(`//update_appfile/${appId}`,{...values},{headers:{"content-Type":"multipart/form-data"}})
+}
 
 //GET METHODS
 
@@ -84,3 +93,8 @@ export const getPieChartDetails=()=>{
 export const getBarChartDetails=()=>{
     return adminInstance.get("/getbarChartDetails")
 }
+
+export const getadminUploadApps=(userId)=>{
+    return adminInstance.get(`/getuploadapps/${userId}`)
+}
+

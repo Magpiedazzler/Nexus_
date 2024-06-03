@@ -4,13 +4,13 @@
 #ambox{
     background-color: #31363f6e;
     height: 60px;
-    width: 1300px;
+    width: 1350px;
     position: relative;
     left: 0px;
     top: 30px;
     border-radius: 5px;
 }
-#amt1,#amt2,#amt3,#amb1,#amb2,#amb3{
+#amt1,#amt2,#amt3,#amb1,#amb2,#amb3,#amb23{
     position: relative;
     top: 5px;
     left: 30px;
@@ -44,7 +44,7 @@
 }
 #amb1{
     position: relative;
-    left: -30px;
+    left: -50px;
     height: 40px;
     width: 110px;
     font-size: 20px;
@@ -53,7 +53,7 @@
 }
 #amb2{
     position: relative;
-    left: -0px;
+    left: -15px;
     height: 40px;
     width: 130px;
     font-size: 20px;
@@ -65,24 +65,24 @@
 #amb23{
     position: relative;
     top: 5px;
-    left: -0px;
+    left: -15px;
     height: 40px;
     width: 130px;
     font-size: 20px;
     color: #EEEEEE;
     box-shadow: none;
-    background-color: green;
+    background-color: rgb(16, 172, 16);
 }
 #amb3{
-    position: relative;
-    left: 30px;
+    position: absolute;
+    left: 1170px;
     height: 40px;
     width: 110px;
     font-size: 20px;
     color: #EEEEEE;
     background-color: rgb(199, 20, 20);
 }
-#amb1:hover,#amb2:hover,#amb3:hover{
+#amb1:hover,#amb23:hover,#amb3:hover{
     box-shadow: 2px 3px 4px black;
 }
 #ami1{

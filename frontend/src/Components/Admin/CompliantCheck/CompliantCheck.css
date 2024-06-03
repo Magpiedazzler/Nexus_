@@ -1,6 +1,6 @@
 #ccb1{
     position: relative;
-    left: 900px;
+    left: 1000px;
     top: -38px;
     font-size: 18px;
     color: #EEEEEE;
@@ -63,6 +63,7 @@
     border: none;
     width: 350px;
     font-size: 18px;
+    left: -20px;
 }
 .dropdown-menu{
     background-color: #31363f76;

@@ -78,6 +78,7 @@ export default function LinuxApps() {
                 </tr>
               ))
             ) : (
+            // <p>Empty</p>
               <tr>
                 <td colSpan="4" style={{ textAlign: 'center' }}>Empty</td>
               </tr>

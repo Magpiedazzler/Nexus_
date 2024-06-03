@@ -78,7 +78,9 @@ export default function TotalGames() {
                       <td>{value?.OS}</td>
                       </tr>
                     )))
-                  ):(<p>No games found</p>)}
+                  ):(<tr>
+                    <td colSpan="4" style={{ textAlign: 'center' }}>No games found</td>
+                  </tr>)}
                     
                 </tbody>
             </table>

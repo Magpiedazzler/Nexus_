@@ -5,6 +5,11 @@ export const userRegister=(values)=>{
     return userInstance.post("/register",{...values})
 }
 
+export const forgotpswd=(values)=>{
+    console.log(values,"forgotpswd service")
+    return userInstance.post("/forgotpswd",{...values})
+}
+
 export const login=(values)=>{
     console.log(values,"8888888888888s    LOGIJN")
     return userInstance.post("/login",{...values})
@@ -13,6 +18,11 @@ export const login=(values)=>{
 export const appreg=(values,userID)=>{
     console.log(values,"8888888888888888 ")
     return userInstance.post(`/upload/${userID}`,{...values},{headers:{"content-Type":"multipart/form-data"}})
+}
+
+export const appupdate=(values,appId)=>{
+    console.log(values,"jghjgajhgjgasjhdgjh")
+    return userInstance.post(`/updateFile/${appId}`,{...values},{headers:{"content-Type":"multipart/form-data"}})
 }
 
 export const sendFeedback=(feedStatus,category,comments,userId)=>{
@@ -30,6 +40,10 @@ export const appAddtoProfile = (userId, appId) => {
   
 export const appReport=(userId,appId,values)=>{
     return userInstance.post('/report',{userId,appId,...values})
+}
+
+export const sendRating=(feedStatus,ratingMsg,userId,appId)=>{
+    return userInstance.post(`/rating`,{feedStatus,userId,appId,ratingMsg})
 }
 
 export const addToWishlist=(userId,values)=>{
@@ -61,6 +75,7 @@ export const getUserInstalledApps=()=>{
 }
 
 export const getSelectedAppsDetails=(appId)=>{
+    console.log(appId,"servicesssssss")
     return userInstance.get(`/selectedAppDetails/${appId}`)
 }
 
