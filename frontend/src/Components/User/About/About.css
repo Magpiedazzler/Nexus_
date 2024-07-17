@@ -1,0 +1,107 @@
+#about{
+    background: linear-gradient(90deg, rgba(254,254,254,1) 0%, rgba(13,13,74,1) 57%, rgba(25,61,69,1) 100%);
+    height: 100px;
+    padding-left: 150px;
+    display: flex;
+    flex-direction: row;
+}
+#about i{
+    font-size: 50px;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    left: 1250px;
+    top: 10px;
+}
+#about i:hover{
+    color: red;
+}
+#aboutsection1{
+    background: linear-gradient(90deg, rgba(254,254,254,1) 0%, rgba(13,13,74,1) 57%, rgba(25,61,69,1) 100%);
+    color: black;
+    height: 600px;
+    font-size: 20px;
+    margin-top: -30px;
+}
+#about1{
+    margin-top: 50px;
+    position: relative;
+    left: -50px;
+}
+#about1 h3{
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#abouthr1{
+    position: relative;
+    top: -30px;
+    left: 0px;
+    width: 650px;
+    height: 5px;
+    border: none;
+    background: linear-gradient(to right, #1507db, #f20303);
+    box-shadow: 2px 3px 4px black;
+}
+#about2 img{
+    height: 550px;
+    width: 550px;
+    position: relative;
+    left: 100px;
+    top: 25px;
+    border-radius: 10px;
+    box-shadow: 2px 3px 4px black;
+}
+#about3{
+    position: relative;
+    top: 50px;
+    left: -100px;
+}
+#about4{
+    position: relative;
+    top: 50px;
+    
+}
+#aboutsection2{
+    /* background: linear-gradient(90deg, rgba(254,254,254,1) 0%, rgba(13,13,74,1) 57%, rgba(25,61,69,1) 100%); */
+    background-color: #eeeeee;
+    height: 550px;
+    margin-top: -30px;
+    font-size: 18px;
+}
+#aboutsection2 ul li{
+    padding-top: 10px;
+}
+#aboutsection3{
+    background-color: #eeeeee;
+    height: 250px;
+}
+#aboutsection3 div{
+    margin-left: 50px;
+    padding-top: 50px;
+    font-size: 20px;
+}
+#footerabout1{
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    height: 400px;
+    padding-top: 20px;
+    padding-left: 30px;
+}
+#aboutp1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    color: red;
+}
+#abouth1{
+    font-weight: bold;
+}
+#footerabout1 ul li{
+    padding-top: 20px;
+    font-size: 18px;
+}
+#footerabout1 ul li i{
+    font-size: 35px;
+    background: -webkit-linear-gradient(#eb0808, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

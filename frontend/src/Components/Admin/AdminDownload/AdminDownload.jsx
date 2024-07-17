@@ -1,115 +1,96 @@
-import React, { useEffect, useState } from 'react';
-import './Download.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { addToWishlist, appAddtoProfile, getReview, getSelectedAppsDetails } from '../../../Services/userApi';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react'
+import './AdminDownload.css'
+import { useNavigate, useParams } from 'react-router-dom'
+import { getReview, getSelectedAppsDetails } from '../../../Services/userApi';
 
-export default function Download() {
-    const appId = useParams().id;
-    const [selectedData, setSelectedData] = useState([]);
-    const [reviewData, setReviewData] = useState([]);
-    const userId = useSelector((state) => state?.user?.value?._id);
-    const navigate = useNavigate();
+export default function AdminDownload() {
+  const appId=useParams().id
+  const [selectedData, setSelectedData] = useState([]);
+  const [reviewData, setReviewData] = useState([]);
+  const navigate = useNavigate();
+  const DownloadSelectedApp = (apkFile, appId) => {
+      const fileUrl = `http://localhost:4000/img/${apkFile}`;
+      const link = document.createElement("a");
+      link.href = fileUrl;
+      link.setAttribute("download", "");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  };
+  useEffect(() => {
+      getSelectedAppsDetails(appId).then((value) => {
+          if (value?.data?.status) {
+              setSelectedData(value?.data?.appData);
+          }
+      });
+  }, []);
 
-    const DownloadSelectedApp = (apkFile, appId) => {
-        appAddtoProfile(userId, appId).then((value) => {
-            console.log(value, "Data Downloaded");
-        });
-        const fileUrl = `http://localhost:4000/img/${apkFile}`;
-        const link = document.createElement("a");
-        link.href = fileUrl;
-        link.setAttribute("download", "");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+  useEffect(() => {
+      getReview(appId).then((value) => {
+          if (value?.data?.status) {
+              setReviewData(value?.data?.reviewData);
+          }
+      });
+  }, []);
 
-    const addToWishlistFun = (userId, Data) => {
-        addToWishlist(userId, Data).then((value) => {
-            if (value?.data?.status) {
-                toast.success(value?.data?.message);
-            } else {
-                toast.error(value?.data?.message);
-            }
-        });
-    }
+  const renderStars = (rating) => {
+      const fullStar = '★';
+      const emptyStar = '☆';
+      const maxStars = 5;
 
-    useEffect(() => {
-        getSelectedAppsDetails(appId).then((value) => {
-            if (value?.data?.status) {
-                setSelectedData(value?.data?.appData);
-            }
-        });
-    }, []);
+      const fullStars = Math.floor(rating);
+      const emptyStars = maxStars - fullStars;
 
-    useEffect(() => {
-        getReview(appId).then((value) => {
-            if (value?.data?.status) {
-                setReviewData(value?.data?.reviewData);
-            }
-        });
-    }, []);
+      if (isNaN(fullStars) || fullStars < 0 || fullStars > maxStars) {
+          return null;
+      }
+      return (
+        <>
+            {[...Array(fullStars)].map((_, i) => (
+                <span key={i} className="star">{fullStar}</span>
+            ))}
+            {[...Array(emptyStars)].map((_, i) => (
+                <span key={i} className="star">{emptyStar}</span>
+            ))}
+        </>
+    );
+};
 
-    const renderStars = (rating) => {
-        const fullStar = '★';
-        const emptyStar = '☆';
-        const maxStars = 5;
-
-        const fullStars = Math.floor(rating);
-        const emptyStars = maxStars - fullStars;
-
-        if (isNaN(fullStars) || fullStars < 0 || fullStars > maxStars) {
-            return null;
+const calculateRatingDistribution = () => {
+    const distribution = Array(5).fill(0);
+    reviewData.forEach((review) => {
+        if (review.ratingStatus >= 1 && review.ratingStatus <= 5) {
+            distribution[review.ratingStatus - 1]++;
         }
+    });
+    return distribution;
+};
 
+const renderRatingProgressBars = () => {
+    const distribution = calculateRatingDistribution();
+
+    return distribution.reverse().map((count, index) => {
+        const stars = 5 - index;
         return (
-            <>
-                {[...Array(fullStars)].map((_, i) => (
-                    <span key={i} className="star">{fullStar}</span>
-                ))}
-                {[...Array(emptyStars)].map((_, i) => (
-                    <span key={i} className="star">{emptyStar}</span>
-                ))}
-            </>
+            <div key={index} className="star-rating">
+                {renderStars(stars)}
+                <span className="star-count"><p>({count})</p></span>
+            </div>
         );
-    };
+    });
+};
 
-    const calculateRatingDistribution = () => {
-        const distribution = Array(5).fill(0);
-        reviewData.forEach((review) => {
-            if (review.ratingStatus >= 1 && review.ratingStatus <= 5) {
-                distribution[review.ratingStatus - 1]++;
-            }
-        });
-        return distribution;
-    };
+const calculateAverageRating = () => {
+    if (reviewData.length === 0) return 0;
+    const totalRating = reviewData.reduce((sum, review) => sum + parseInt(review.ratingStatus), 0);
+    return (totalRating / reviewData.length).toFixed(1);
+};
 
-    const renderRatingProgressBars = () => {
-        const distribution = calculateRatingDistribution();
+const averageRating = calculateAverageRating();
 
-        return distribution.reverse().map((count, index) => {
-            const stars = 5 - index;
-            return (
-                <div key={index} className="star-rating">
-                    {renderStars(stars)}
-                    <span className="star-count"><p>({count})</p></span>
-                </div>
-            );
-        });
-    };
-
-    const calculateAverageRating = () => {
-        if (reviewData.length === 0) return 0;
-        const totalRating = reviewData.reduce((sum, review) => sum + parseInt(review.ratingStatus), 0);
-        return (totalRating / reviewData.length).toFixed(1);
-    };
-
-    const averageRating = calculateAverageRating();
-
-    return (
-        <div>
-            <div className="div2" id='divv2'>
+  return (
+    <div>
+      <div className="div2" id='div2'>
                 <section>
                     <div className="container">
                         <div className="row">
@@ -137,10 +118,6 @@ export default function Download() {
                                 <div align='center' id='downloadcate'>
                                     <label htmlFor="" id='lab3' align='center'>{selectedData?.Category}</label>
                                 </div>
-                                <div align='center'>
-                                    <button id='btn333' align='center' onClick={() => navigate(`/report/${selectedData?._id}`)}><i className="bi bi-flag" id='flag'></i>Report app</button>
-                                    <button id='btn4444' align='center' onClick={() => addToWishlistFun(userId, selectedData)}><i className="bi bi-heart" id='flag'></i>Add to wishlist</button>
-                                </div>
                                 <div align="center">
                                     <button id='btn555' align='center' onClick={() => navigate(`/rating/${selectedData?._id}`)}><i className="bi bi-award" id='flag'></i>Rate</button>
                                 </div>
@@ -157,7 +134,7 @@ export default function Download() {
                                 <div align='center' id='subdivv'>
                                     <h4 id='divh'>Rating and Review</h4><br /><hr id='rathr' /><br />
                                     <div id="review-section">
-                                        <div className="average-rating">
+                                    <div className="average-rating">
                                             <h5>Average Rating: {averageRating} ★</h5>
                                         </div>
                                         {renderRatingProgressBars()}
@@ -190,6 +167,6 @@ export default function Download() {
                     </div>
                 </section>
             </div>
-        </div>
-    )
+    </div>
+  )
 }

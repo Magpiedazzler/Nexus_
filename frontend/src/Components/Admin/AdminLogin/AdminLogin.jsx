@@ -7,6 +7,7 @@ import { adminLogin } from '../../../Services/adminApi'
 import { setAdminDetails } from '../../../Features/setAdmin'
 import { toast } from 'react-toastify'
 import { useFormik } from 'formik'
+import coverImage from './Designer.png';
 
 export default function AdminLogin() {
   const dispatch=useDispatch()
@@ -58,7 +59,14 @@ export default function AdminLogin() {
   return (
     <div>
       <form onSubmit={formik.handleSubmit} id="adform1">
-      <h1 id='adt1'>Admin Login</h1><br /><br />
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <img src={coverImage} alt="Cover image" id='coverimage'/>
+          </div>
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div id='loginzz'>
+          <h1 id='adt1'>Admin Login</h1><br /><br />
       <input type="text" name="email" id="adusername" placeholder='Username'
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
@@ -80,6 +88,11 @@ export default function AdminLogin() {
         ) : null}
       <br /><hr id='line'/><br />
       <button type="submit" id="adsubmit">Login</button><br/>
+      </div>
+          </div>
+        </div>
+      </div>
+      
       </form>
     </div>
   )

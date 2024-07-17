@@ -38,6 +38,7 @@ export const appupdated=(values,appId)=>{
     return adminInstance.post(`//update_appfile/${appId}`,{...values},{headers:{"content-Type":"multipart/form-data"}})
 }
 
+
 //GET METHODS
 
 
@@ -97,4 +98,5 @@ export const getBarChartDetails=()=>{
 export const getadminUploadApps=(userId)=>{
     return adminInstance.get(`/getuploadapps/${userId}`)
 }
+
 

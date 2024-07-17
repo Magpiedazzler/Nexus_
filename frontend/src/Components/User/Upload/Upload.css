@@ -1,15 +1,16 @@
 #div2{
     margin-top: -600px;
 }
-#uh{
+#uhh{
     font-weight: bold;
     position: relative;
-    left: 50px;
+    left: -20px;
+    top: -40px;
 }
-#form3{
+#form333{
     position: relative;
-    left: 100px;
-    top: 20px;
+    left: 10px;
+    top: 0px;
     background-color: #31363f8f;
     width: 1200px;
     border-radius: 5px;

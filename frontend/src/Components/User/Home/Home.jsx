@@ -16,16 +16,16 @@ export default function Home() {
 
     useEffect(() => {
         getBanner().then((response) => {
-            console.log(response.data.data,"!!!!!!!!!!!!!!!!!!!!!~~~~")
+            console.log(response.data.data, "!!!!!!!!!!!!!!!!!!!!!~~~~")
             if (response?.data?.status) {
-             
+
                 setBannerImages(response.data.data);
             }
         });
     }, []);
 
     const handleDownloadApp = (apkFile, appId) => {
-        appAddtoProfile(userId, appId).then(() => {});
+        appAddtoProfile(userId, appId).then(() => { });
 
         const fileUrl = `http://localhost:4000/img/${apkFile}`;
         const link = document.createElement('a');

@@ -42,8 +42,8 @@ export const appReport=(userId,appId,values)=>{
     return userInstance.post('/report',{userId,appId,...values})
 }
 
-export const sendRating=(feedStatus,ratingMsg,userId,appId)=>{
-    return userInstance.post(`/rating`,{feedStatus,userId,appId,ratingMsg})
+export const sendRating=(feedStatus,ratingMsg,userId,username,appId)=>{
+    return userInstance.post(`/rating`,{feedStatus,userId,username,appId,ratingMsg})
 }
 
 export const addToWishlist=(userId,values)=>{
@@ -75,8 +75,11 @@ export const getUserInstalledApps=()=>{
 }
 
 export const getSelectedAppsDetails=(appId)=>{
-    console.log(appId,"servicesssssss")
     return userInstance.get(`/selectedAppDetails/${appId}`)
+}
+
+export const getReview=(appId)=>{
+    return userInstance.get(`reviewDetails/${appId}`)
 }
 
 export const getWishlistApps=()=>{

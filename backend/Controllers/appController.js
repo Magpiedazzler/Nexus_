@@ -81,6 +81,20 @@ module.exports.FetchGames = async (req, res) => {
     }
   };
 
+  module.exports.review=async(req,res)=>{
+    try{
+      const appId=req.params.appId
+      const reviewData=await rateModel.find({appId})
+      if(reviewData){
+        return res.json({message:"Success", status:true,reviewData})
+      }
+      return res.json({message:"Unable to fetch rating", status:false})
+    }catch(error){
+      console.log(error);
+      return res.json({ message: "Internal server error", status: false });
+    }
+  };
+
   module.exports.appRating = async (req, res) => {
     try {
       const rateExist = await rateModel.find({
@@ -91,18 +105,19 @@ module.exports.FetchGames = async (req, res) => {
       if (rateExist.length > 0) {
         return res.json({ message: "You already rated this application", status: true });
       }
-  
-      console.log(req.body, "666666666666666");
-  
+      
+      const user = await userModel.findById(req.body.userId);
+        if (!user) {
+            return res.json({ message: "User not found", status: false });
+        }
+
       const ratedApp = new rateModel({
         userId: req.body.userId,
         appId: req.body.appId,
+        username:user.username,
         ratingStatus: req.body.feedStatus,
-        ratingMessage: req.body.ratingMsg.ratingMsg, // Corrected this line
+        ratingMessage: req.body.ratingMsg.ratingMsg,
       });
-  
-      console.log(req.body.ratingMsg, ";;;;;;;;;;;;;;;;;;");
-  
       const data = await ratedApp.save();
   
       if (data) {
@@ -116,35 +131,6 @@ module.exports.FetchGames = async (req, res) => {
     }
   };
   
-
-  // module.exports.appRating=async(req,res)=>{
-  //   try{
-  //     const rateExist=await rateModel.find({
-  //       userId:req.body.userId,
-  //       appId:req.body.appId,
-  //     })
-  //     if(rateExist.length>0){
-  //       return res.json({message:"You already rated this application",status:true,})
-  //     }
-  //     console.log(req.body,"666666666666666");
-  //     const ratedApp=new rateModel({
-  //       userId:req.body.userId,
-  //       appId:req.body.appId,
-  //       ratingStatus:req.body.feedStatus,
-  //       ratingMessage:req.body.ratingMsg.ratingMsg,
-  //     })
-  //     console.log(req.body.ratingMsg.ratingMsg,";;;;;;;;;;;;;;;;;;");
-  //     const data = await ratedApp.save()
-  //     if(data){
-  //       return res.json({message:"Application rated successfully",status:true,date})
-  //     }else{
-  //       return res.json({message:"Unable to rate ",status:false})
-  //     }
-  //   }catch(error){
-  //     console.log(error);
-  //     return res.json({message:"Internal server error",status:false})
-  //   }
-  // }
   
   module.exports.appReport = async (req, res) => {
     try {

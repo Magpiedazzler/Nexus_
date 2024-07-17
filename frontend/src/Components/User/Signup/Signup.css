@@ -1,12 +1,13 @@
 #form{
-    margin-left: 500px;
+    margin-left: 550px;
     margin-top: 60px;
-    background-color: #222831b2;
+    background-color: #110e2a;
     width: 550px;
     height: 850px;
     box-shadow: 2px 3px 4px;
     margin-bottom: 20px;
     padding-left: 30px;
+    padding-top: 20px;
 }
 #h1{
     color: white;
@@ -55,4 +56,7 @@ hr{
 }
 body{
     background-color: #76ABAE;
+}
+#qsn option{
+    background-color: #31363F;
 }

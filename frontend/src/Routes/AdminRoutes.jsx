@@ -22,6 +22,7 @@ import AdminBannerPage from '../Pages/Admin/AdminBannerPage'
 import AdminUpdateAppPage from '../Pages/Admin/AdminUpdateAppPage'
 import AdminUpdateAppFilePage from '../Pages/Admin/AdminUpdateAppFilePage'
 import AdminAppUploadPage from '../Pages/Admin/AdminAppUploadPage'
+import AdminDownloadPage from '../Pages/Admin/AdminDownloadPage'
 
 export default function AdminRoutes() {
   return (
@@ -49,7 +50,7 @@ export default function AdminRoutes() {
         <Route path='/upload_app' element={<AdminAppUploadPage/>}/>
         <Route path='/update_app' element={<AdminUpdateAppPage/>}/>
         <Route path='/update_appfile/:id' element={<AdminUpdateAppFilePage/>}/>
-
+        <Route path='/admin_install/:id' element={<AdminDownloadPage/>}/>
       </Routes>
     </div>
   )

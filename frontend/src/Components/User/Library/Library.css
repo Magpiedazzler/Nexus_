@@ -15,7 +15,7 @@
 }
 #libb1:hover,#libb2:hover{
     background-color: transparent;
-    text-decoration: underline;
+    color: #cf0c0c;
 }
 #ldiv{
     height: 350px;
@@ -101,4 +101,8 @@
 #homenav{
     position: relative;
     left: 50px;
+}
+.active-button {
+    text-decoration: underline;
+    font-weight: bold;
 }

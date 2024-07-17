@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import './CompliantCheck.css'
-import { viewCompliant } from '../../../Services/adminApi'
-import { getSelectedAppsDetails } from '../../../Services/userApi'
+import React, { useEffect, useState } from 'react';
+import './CompliantCheck.css';
+import { viewCompliant } from '../../../Services/adminApi';
+import { getSelectedAppsDetails } from '../../../Services/userApi';
 
 export default function CompliantCheck() {
     const [compliants, setCompliants] = useState([]);
@@ -29,35 +29,46 @@ export default function CompliantCheck() {
         });
     }, []);
 
-  return (
-    <div>
-        
-        <div class="div2" id='div2'>
-            <section>
-                <div class="container">
-                    <div class="row">
+    return (
+        <div>
+            <div className="div2" id='div2'>
+                <section>
+                    <div className="container">
+                        <div className="row">
                             <h2>Compliants</h2>
-                            {compliants.map((value,index)=>(
-                                <div id='ccbox'>
-                                
-                                <input type="text" id='cct1' value={value?.userId?.email} readOnly/>
-                                <input type="text" id='cct2' value={appNames[value?.appId]} readOnly/>
-                                <input type="text" id='cct3' value={value?.reportCategory} readOnly/>
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" id='ccb1' aria-expanded="false" aria-controls="collapseOne">
-                                    View<i class="bi bi-chevron-down" id='cci1'></i>
-                                </button>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <p>{value?.reportMessage}</p>
+                            {compliants.map((value, index) => {
+                                const collapseId = `collapse${index}`;
+                                return (
+                                    <div id='ccbox' key={index}>
+                                        <input type="text" id='cct1' value={value?.userId?.email} readOnly />
+                                        <input type="text" id='cct2' value={appNames[value?.appId]} readOnly />
+                                        <input type="text" id='cct3' value={value?.reportCategory} readOnly />
+                                        <button
+                                            className="accordion-button"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target={`#${collapseId}`}
+                                            id='ccb1'
+                                            aria-expanded="false"
+                                            aria-controls={collapseId}
+                                        >
+                                            View<i className="bi bi-chevron-down" id='cci1'></i>
+                                        </button>
+                                        <div
+                                            id={collapseId}
+                                            className="accordion-collapse collapse"
+                                        >
+                                            <div className="accordion-body">
+                                                <p>{value?.reportMessage}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            ))}
-                            
+                                );
+                            })}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-  )
+    );
 }

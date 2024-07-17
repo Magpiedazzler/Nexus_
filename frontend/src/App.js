@@ -14,6 +14,7 @@ import UpdatePage from "./Pages/User/UpdatePage";
 import UploadFilePage from "./Pages/User/UploadFilePage";
 import ForgotPasswordPage from "./Pages/User/ForgotPasswordPage";
 import RatingPage from "./Pages/User/RatingPage";
+import AboutPage from "./Pages/User/AboutPage";
 import AdminLoginPage from "./Pages/Admin/AdminLoginPage";
 import AdminHomePage from "./Pages/Admin/AdminHomePage";
 import AdminAppManagementPage from "./Pages/Admin/AdminAppManagementPage";
@@ -35,15 +36,24 @@ import AdminNotificationPage from "./Pages/Admin/AdminNotificationPage";
 import AdminBannerPage from "./Pages/Admin/AdminBannerPage";
 import AdminAppUploadPage from "./Pages/Admin/AdminAppUploadPage";
 import AdminUpdateAppPage from "./Pages/Admin/AdminUpdateAppPage";
-import AdminUpdateAppFilePage from "./Pages/Admin/AdminUpdateAppFilePage";
+import AdminUpdateAppFilePage from "./Pages/Admin/AdminUpdateAppFilePage"
+import AdminDownloadPage from "./Pages/Admin/AdminDownloadPage";
 import UserRoutes from "./Routes/UserRoutes"
 import AdminRoutes from "./Routes/AdminRoutes"
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 function App() {
+  // const appStyles = {
+  //   backgroundImage: "url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0')",
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center",
+  //   height: "100vh",
+  //   width: "100vw",
+  //   margin: 0,
+  //   padding: 0,
+  // };
   return (
     <div>
   <BrowserRouter>

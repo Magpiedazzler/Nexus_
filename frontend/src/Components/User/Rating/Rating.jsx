@@ -12,6 +12,7 @@ export default function Rating() {
     const [selectedStatus, setSelectedStatus] = useState("");
     const [appDetails, setAppDetails] = useState({});
     const userId = useSelector((state) => state?.user?.value?._id);
+    const username = useSelector((state) => state?.user?.value?.username); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,7 +36,7 @@ export default function Rating() {
     });
 
     const onSubmit = async (values, { resetForm }) => {
-        const { data } = await sendRating(selectedStatus, values, userId, appId);
+        const { data } = await sendRating(selectedStatus, values, userId,username, appId);
         if (data.status) {
             setSelectedStatus("");
             toast.success(data.message);

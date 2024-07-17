@@ -16,14 +16,15 @@ import UpdatePage from '../Pages/User/UpdatePage'
 import UploadFilePage from '../Pages/User/UploadFilePage'
 import ForgotPasswordPage from '../Pages/User/ForgotPasswordPage'
 import RatingPage from '../Pages/User/RatingPage'
+import AboutPage from '../Pages/User/AboutPage'
 
 function UserRoutes() {
   return (
     <div>
       <Routes>
         <Route path='/register' element={<Registration/>}/>
-        <Route path='/' element={<HomePage/>}/>
-        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/home' element={<HomePage/>}/>
+        <Route path='/' element={<LoginPage/>}/>
         <Route path='/apps' element={<ApplicationPage/>}/>
         <Route path='/games' element={<GamePage/>}/>
         <Route path='/install/:id' element={<DownloadPage/>}/>
@@ -37,6 +38,7 @@ function UserRoutes() {
         <Route path='/update_file/:id' element={<UploadFilePage/>}/>
         <Route path='/forgot_pswd' element={<ForgotPasswordPage/>}/>
         <Route path='/rating/:appId' element={<RatingPage/>}/>
+        <Route path='/about' element={<AboutPage/>}/>
       </Routes>
     </div>
   )

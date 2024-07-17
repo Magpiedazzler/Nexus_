@@ -9,6 +9,7 @@
     left: 0px;
     top: 30px;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 #amt1,#amt2,#amt3,#amb1,#amb2,#amb3,#amb23{
     position: relative;

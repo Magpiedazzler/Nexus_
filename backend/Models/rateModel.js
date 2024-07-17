@@ -2,10 +2,14 @@ const mongoose=require("mongoose")
 
 const RatedApps=new mongoose.Schema({
     userId:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
     },
     appId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+    },
+    username:{
         type:String,
         required:true,
     },
@@ -17,10 +21,6 @@ const RatedApps=new mongoose.Schema({
         type:String,
         required:true,
     },
-    // totalRating:{
-    //     type:String,
-    //     default:'0',
-    // }
 })
 
 module.exports=new mongoose.model("appRating",RatedApps)
